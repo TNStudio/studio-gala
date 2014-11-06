@@ -1,5 +1,6 @@
 package application;
 	
+import java.io.IOException;
 import java.util.ArrayList;
 
 import application.model.Photo;
@@ -25,6 +26,9 @@ public class Main extends Application {
 	private int largeur_photo = 350;
 	private int nb_photo = 5;
 	private ArrayList<Photographe> photographeList;
+	private String folder ="file:\\E:\\Pictures\\pitimoi.jpg";
+	
+	private Stage primaryStage;
 	
 	public Main(){
 
@@ -33,16 +37,9 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
+		this.primaryStage=primaryStage;
 		try {
-			FXMLLoader loader = new FXMLLoader(); //create a loader to load the GUI
-            loader.setLocation(Main.class.getResource("view/MainInterface.fxml")); //find the GUI file
-			AnchorPane root = loader.load(); //load the GUI in a AnchorPane
-			Scene scene = new Scene(root); //create a scene with the GUI
-			primaryStage.setScene(scene); //put the scene in a stage (window)
-			primaryStage.setTitle("GALA printer Service by TN Studio"); //give a name to the window
-			primaryStage.setFullScreen(true); //set the window in fullscreen mode
-			MainInterfaceController mainInterfaceController = loader.getController();
-			mainInterfaceController.setMain(this);
+			this.loadMainInterface();
 			primaryStage.show(); //display the window
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -86,8 +83,41 @@ public class Main extends Application {
 		this.photographeList = photographeList;
 	}
 
+	public Stage getPrimaryStage() {
+		return primaryStage;
+	}
+
+	public void setPrimaryStage(Stage primaryStage) {
+		this.primaryStage = primaryStage;
+	}
 
 	
+
+	public String getFolder() {
+		return folder;
+	}
+
+	public void setFolder(String folder) {
+		this.folder = folder;
+	}
+
+	public void loadMainInterface(){
+		try {
+			FXMLLoader loader = new FXMLLoader(); //create a loader to load the GUI
+			loader.setLocation(Main.class.getResource("view/MainInterface.fxml")); //find the GUI file
+			AnchorPane root = loader.load(); //load the GUI in a AnchorPane
+			Scene scene = new Scene(root); //create a scene with the GUI
+			primaryStage.setScene(scene); //put the scene in a stage (window)
+			primaryStage.setTitle("GALA printer Service by TN Studio"); //give a name to the window
+			primaryStage.setFullScreen(true); //set the window in fullscreen mode
+			MainInterfaceController mainInterfaceController = loader.getController();
+			mainInterfaceController.setMain(this);
+			mainInterfaceController.update();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	
 }
