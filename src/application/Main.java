@@ -1,7 +1,14 @@
 package application;
 	
+import java.util.ArrayList;
+
+import application.model.Photo;
+import application.model.Photographe;
 import application.view.MainInterfaceController;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -17,6 +24,12 @@ public class Main extends Application {
 	private int nb_photogrpahe = 3;
 	private int largeur_photo = 350;
 	private int nb_photo = 5;
+	private ArrayList<Photographe> photographeList;
+	
+	public Main(){
+
+		
+	}
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -37,19 +50,7 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		int nb_photographe = 3;
-		int largeur_photo = 350;
-		int nb_photo = 5;
-
-		if(args.length == 1){
-			nb_photographe = Integer.parseInt(args[0]);
-		}
-		if(args.length == 2){
-			largeur_photo = Integer.parseInt(args[1]);
-		}
-		if(args.length == 3){
-			nb_photo = Integer.parseInt(args[2]);
-		}
+		
 		launch(args); //invoke start method
 	}
 
@@ -76,6 +77,17 @@ public class Main extends Application {
 	public void setNb_photo(int nb_photo) {
 		this.nb_photo = nb_photo;
 	}
+
+	public ArrayList<Photographe> getPhotographeList() {
+		return photographeList;
+	}
+
+	public void setPhotographeList(ArrayList<Photographe> photographeList) {
+		this.photographeList = photographeList;
+	}
+
+
+	
 	
 	
 }

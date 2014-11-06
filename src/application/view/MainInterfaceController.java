@@ -10,11 +10,15 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.GroupLayout.Alignment;
 
+import observerPattern.MyObserver;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,28 +27,31 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import application.Main;
 import application.model.Photo;
+import application.model.Photographe;
 
 /**
  * A class that give the ids of the GUI components and implements their behaviors
  * @author Martin
  *
  */
-public class MainInterfaceController {
+public class MainInterfaceController implements MyObserver{
 	
 	@FXML
 	private ScrollPane photoScroll;
 	
 	@FXML
-	private Button button;
+	private ListView<Photographe> listPhotographe;
 	
 	private Main main;
 	private GridPane photoGridPane;
 	
 	private Image image;
 	
+	 public static final ObservableList names = FXCollections.observableArrayList();
+	
 	@FXML
 	private void initialize(){
-		
+
 	}
 	
 	public void setMain(Main main){
@@ -67,6 +74,12 @@ public class MainInterfaceController {
 			}
 		}
 		
+		
+	}
+
+	@Override
+	public void update() {
+	
 		
 	}
 
