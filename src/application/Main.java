@@ -32,6 +32,10 @@ public class Main extends Application {
 	
 	public Main(){
 
+		photographeList = new ArrayList<Photographe>();
+		for(int i=0; i<nb_photogrpahe;i++){
+			photographeList.add(new Photographe(i));
+		}
 		
 	}
 	
