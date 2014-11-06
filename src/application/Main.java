@@ -6,15 +6,10 @@ import java.io.File;
 	
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-
 import application.model.Photo;
 import application.model.Photographe;
 import application.view.MainInterfaceController;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -31,7 +26,6 @@ public class Main extends Application {
 	private int largeur_photo = 350;
 	private int nb_photo = 5;
 	private ArrayList<Photographe> photographeList;
-	private ArrayList<Photo> photoList;
 	private String folder ="file:\\E:\\Pictures\\pitimoi.jpg";
 	private Stage primaryStage;
 	
@@ -86,24 +80,6 @@ public class Main extends Application {
 
 	public void setPhotographeList(ArrayList<Photographe> photographeList) {
 		this.photographeList = photographeList;
-	}
-
-	public void loadingImagesRoutine(String directory){		
-		File[] files;
-		File dir = new File(directory);
-		File subdir;
-		String[] photographes = dir.list();
-		
-		for(String s : photographes) {
-			photographeList.add(new Photographe(Integer.parseInt(s)));
-			subdir = new File(directory + "\\" + s);
-			files = subdir.listFiles();
-			for(File f : files) {
-				photoList.add(new Photo(f.getName(), Integer.parseInt(s)));
-			}
-		}   
-		setNb_photographe(photographeList.size());
-		setNb_photo(photoList.size());
 	}
 
 	public Stage getPrimaryStage() {
