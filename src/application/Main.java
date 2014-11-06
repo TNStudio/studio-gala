@@ -1,7 +1,12 @@
 package application;
+
+
+import java.io.File;
+
 	
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import application.model.Photo;
 import application.model.Photographe;
@@ -21,24 +26,28 @@ import javafx.scene.layout.AnchorPane;
  *
  */
 public class Main extends Application {
-	
-	private int nb_photogrpahe = 3;
+
+	private int nb_photographe = 3;
 	private int largeur_photo = 350;
 	private int nb_photo = 5;
 	private ArrayList<Photographe> photographeList;
+	private ArrayList<Photo> photoList;
 	private String folder ="file:\\E:\\Pictures\\pitimoi.jpg";
-	
 	private Stage primaryStage;
 	
 	public Main(){
 
+<<<<<<< HEAD
 		photographeList = new ArrayList<Photographe>();
 		for(int i=0; i<nb_photogrpahe;i++){
 			photographeList.add(new Photographe(i));
 		}
 		
+=======
+
+>>>>>>> 5d5a023284b735393b7aaffb9f754755183d1207
 	}
-	
+
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage=primaryStage;
@@ -49,18 +58,18 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
-		
+
 		launch(args); //invoke start method
 	}
 
-	public int getNb_photogrpahe() {
-		return nb_photogrpahe;
+	public int getNb_photographe() {
+		return nb_photographe;
 	}
 
-	public void setNb_photogrpahe(int nb_photogrpahe) {
-		this.nb_photogrpahe = nb_photogrpahe;
+	public void setNb_photographe(int nb_photographe) {
+		this.nb_photographe = nb_photographe;
 	}
 
 	public int getLargeur_photo() {
@@ -85,6 +94,24 @@ public class Main extends Application {
 
 	public void setPhotographeList(ArrayList<Photographe> photographeList) {
 		this.photographeList = photographeList;
+	}
+
+	public void loadingImagesRoutine(String directory){		
+		File[] files;
+		File dir = new File(directory);
+		File subdir;
+		String[] photographes = dir.list();
+		
+		for(String s : photographes) {
+			photographeList.add(new Photographe(Integer.parseInt(s)));
+			subdir = new File(directory + "\\" + s);
+			files = subdir.listFiles();
+			for(File f : files) {
+				photoList.add(new Photo(f.getName(), Integer.parseInt(s)));
+			}
+		}   
+		setNb_photographe(photographeList.size());
+		setNb_photo(photoList.size());
 	}
 
 	public Stage getPrimaryStage() {
@@ -122,6 +149,4 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
-	
 }
