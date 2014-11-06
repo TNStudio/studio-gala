@@ -11,11 +11,11 @@ package application.model;
 public class Photo {
 	
 	private String path;
-	private int photograhe;
+	private int photographe;
 	
 	public Photo(String path, int photographe){
 		this.path = path;
-		this.photograhe = photographe;
+		this.photographe = photographe;
 	}
 
 	public String getPath() {
@@ -27,11 +27,11 @@ public class Photo {
 	}
 
 	public int getPhotograhe() {
-		return photograhe;
+		return photographe;
 	}
 
 	public void setPhotograhe(int photograhe) {
-		this.photograhe = photograhe;
+		this.photographe = photograhe;
 	}
 
 	
