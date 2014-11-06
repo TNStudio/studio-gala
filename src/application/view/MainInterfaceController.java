@@ -3,6 +3,11 @@
  */
 package application.view;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.GroupLayout.Alignment;
 
 import javafx.fxml.FXML;
@@ -35,6 +40,8 @@ public class MainInterfaceController {
 	private Main main;
 	private GridPane photoGridPane;
 	
+	private Image image;
+	
 	@FXML
 	private void initialize(){
 		
@@ -45,21 +52,18 @@ public class MainInterfaceController {
 		/**
 		 * for test
 		 */
-		photoGridPane = new GridPane();
-		photoGridPane.setVgap(10);
-		photoGridPane.setHgap(10);
-		photoScroll.setContent(photoGridPane);
-		System.out.println("in setMain controller");
-		
-		Image image = new Image(main.getClass().getResourceAsStream("lolo thales.gif"));
-		for(int i = 0; i<100; i++){
-			for(int j = 0; j<5; j++){
+		photoGridPane = new GridPane(); //create a grid pane to display the pictures
+		photoGridPane.setVgap(10); //create gaps to separate pictures
+		photoGridPane.setHgap(10); //idem
+		photoScroll.setContent(photoGridPane); //put the grid pane into the scrollpane (xml generated)
+		image = new Image("file:\\E:\\Pictures\\pitimoi.jpg"); //load a picture
+		for(int i = 0; i<100; i++){ //create all the imageviews with the picture inside
+			for(int j = 0; j<main.getNb_photo(); j++){
 				ImageView imageView = new ImageView(image);
-				imageView.setFitWidth(350);
+				imageView.setFitWidth(main.getLargeur_photo()); //set the width of the pictures
 				imageView.setPreserveRatio(true);
-				imageView.setCursor(Cursor.HAND);
-				photoGridPane.add(imageView, j, i);
-				System.out.println("i = "+i+" j= "+j);
+				imageView.setCursor(Cursor.HAND); //change the cursor appearance
+				photoGridPane.add(imageView, j, i); //add the imageView to the GUI
 			}
 		}
 		
