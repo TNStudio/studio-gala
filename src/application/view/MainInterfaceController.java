@@ -42,35 +42,35 @@ import application.model.Photographe;
  *
  */
 public class MainInterfaceController implements MyObserver{
-	
+
 	@FXML
 	private ScrollPane photoScroll;
-	
+
 	@FXML
-	private ListView<Photographe> listPhotographe;
-	
+	private ListView<String> listPhotographe;
+
 	@FXML
 	private Button settings;
-	
+
 	@FXML
 	private Button refresh;
-	
+
 	private Main main;
 	private GridPane photoGridPane;
-	
+
 	private Image image;
-	
-	 public static final ObservableList names = FXCollections.observableArrayList();
-	
+
+	public static final ObservableList<String> names = FXCollections.observableArrayList();
+
 	@FXML
 	private void initialize(){
-		
+
 		photoGridPane = new GridPane(); //create a grid pane to display the pictures
 		photoGridPane.setVgap(10); //create gaps to separate pictures
 		photoGridPane.setHgap(10); //idem
 		photoScroll.setContent(photoGridPane); //put the grid pane into the scrollpane (xml generated)
-		
-		settings.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+		settings.setOnMouseClicked(new EventHandler<MouseEvent>() { //load another scene
 
 			@Override
 			public void handle(MouseEvent event) {
@@ -83,7 +83,7 @@ public class MainInterfaceController implements MyObserver{
 					main.getPrimaryStage().setFullScreen(true);
 					main.getPrimaryStage().setTitle("GALA printer Service by TN Studio"); //give a name to the window
 					SettingsInterfaceController settingsInterfaceController = loader.getController();
-					settingsInterfaceController.setMain(main);
+					settingsInterfaceController.setMain(main); //give the model to the scene's controller
 					settingsInterfaceController.update();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -91,7 +91,7 @@ public class MainInterfaceController implements MyObserver{
 				}
 			}
 		});
-		
+
 
 		refresh.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -100,22 +100,27 @@ public class MainInterfaceController implements MyObserver{
 				update();
 			}
 		});
-		
-		
+
+
 	}
-	
+
 	public void setMain(Main main){
 		this.main=main;
-		/**
-		 * for test
-		 */
-		
-		
-		
+
+
+
+
 	}
 
 	@Override
-	public void update() {
+	public void update() { //re-build the view
+
+		listPhotographe.setItems(names);
+
+		for(int i=0;i<main.getPhotographeList().size();i++){
+			names.add(main.getPhotographeList().get(i).getName());
+		}
+
 		image = new Image(main.getFolder()); //load a picture
 		for(int i = 0; i<100; i++){ //create all the imageviews with the picture inside
 			for(int j = 0; j<main.getNb_photo(); j++){
@@ -126,7 +131,7 @@ public class MainInterfaceController implements MyObserver{
 				photoGridPane.add(imageView, j, i); //add the imageView to the GUI
 			}
 		}
-		
+
 	}
 
 }

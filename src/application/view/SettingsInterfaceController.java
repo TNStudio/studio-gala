@@ -32,7 +32,7 @@ public class SettingsInterfaceController implements MyObserver{
 		
 		
 		
-		quit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		quit.setOnMouseClicked(new EventHandler<MouseEvent>() { //go to the main scene
 
 			@Override
 			public void handle(MouseEvent event) {
@@ -40,14 +40,13 @@ public class SettingsInterfaceController implements MyObserver{
 			}
 		});
 		
-		validateFolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		validateFolder.setOnMouseClicked(new EventHandler<MouseEvent>() { //save settings to the data model
 
 			@Override
 			public void handle(MouseEvent event) {
 				main.setFolder(folderField.getText());
 			}
 		});
-		
 	}
 	
 	public void setMain(Main main){
