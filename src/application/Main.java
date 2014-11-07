@@ -6,9 +6,12 @@ import java.io.File;
 	
 import java.io.IOException;
 import java.util.ArrayList;
+
+import observerPattern.MyObserver;
 import application.model.Photo;
 import application.model.Photographe;
 import application.view.MainInterfaceController;
+import application.view.SettingsInterfaceController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -26,8 +29,15 @@ public class Main extends Application {
 	private int largeur_photo = 350;
 	private int nb_photo = 5;
 	private ArrayList<Photographe> photographeList;
-	private String folder ="file:\\E:\\Pictures\\pitimoi.jpg";
+	private String folder ="file:\\E:\\Pictures\\pitimo.jpg";
 	private Stage primaryStage;
+	
+	private FXMLLoader loaderMain;
+	private FXMLLoader loaderSettings;
+	private SettingsInterfaceController settingsInterfaceController;
+	private MainInterfaceController mainInterfaceController;
+	private AnchorPane rootMain;
+	private AnchorPane rootSettings;
 	
 	public Main(){
 
@@ -41,7 +51,17 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		this.primaryStage=primaryStage;
 		try {
-			this.loadMainInterface();
+			loaderMain = new FXMLLoader();
+			loaderSettings = new FXMLLoader();
+			loaderSettings.setLocation(Main.class.getResource("view/SettingsInterface.fxml")); //find the GUI file
+			loaderMain.setLocation(Main.class.getResource("view/MainInterface.fxml")); //find the GUI file
+			rootSettings = loaderSettings.load();
+			rootMain = loaderMain.load(); //load the GUI in a AnchorPane
+			settingsInterfaceController = loaderSettings.getController();
+			mainInterfaceController = loaderMain.getController();
+			settingsInterfaceController.setMain(this);
+			mainInterfaceController.setMain(this);
+			this.loadInterface(loaderSettings, settingsInterfaceController, rootSettings);
 			primaryStage.show(); //display the window
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -102,22 +122,66 @@ public class Main extends Application {
 	public void setFolder(String folder) {
 		this.folder = folder;
 	}
+	
+	
+	
+	
 
-	public void loadMainInterface(){
-		try {
-			FXMLLoader loader = new FXMLLoader(); //create a loader to load the GUI
-			loader.setLocation(Main.class.getResource("view/MainInterface.fxml")); //find the GUI file
-			AnchorPane root = loader.load(); //load the GUI in a AnchorPane
-			Scene scene = new Scene(root); //create a scene with the GUI
-			primaryStage.setScene(scene); //put the scene in a stage (window)
-			primaryStage.setTitle("GALA printer Service by TN Studio"); //give a name to the window
-			primaryStage.setFullScreen(true); //set the window in fullscreen mode
-			MainInterfaceController mainInterfaceController = loader.getController();
-			mainInterfaceController.setMain(this);
-			mainInterfaceController.update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public AnchorPane getRootMain() {
+		return rootMain;
+	}
+
+	public void setRootMain(AnchorPane rootMain) {
+		this.rootMain = rootMain;
+	}
+
+	public AnchorPane getRootSettings() {
+		return rootSettings;
+	}
+
+	public void setRootSettings(AnchorPane rootSettings) {
+		this.rootSettings = rootSettings;
+	}
+
+	public FXMLLoader getLoaderMain() {
+		return loaderMain;
+	}
+
+	public void setLoaderMain(FXMLLoader loaderMain) {
+		this.loaderMain = loaderMain;
+	}
+
+	public FXMLLoader getLoaderSettings() {
+		return loaderSettings;
+	}
+
+	public void setLoaderSettings(FXMLLoader loaderSettings) {
+		this.loaderSettings = loaderSettings;
+	}
+
+	public SettingsInterfaceController getSettingsInterfaceController() {
+		return settingsInterfaceController;
+	}
+
+	public void setSettingsInterfaceController(
+			SettingsInterfaceController settingsInterfaceController) {
+		this.settingsInterfaceController = settingsInterfaceController;
+	}
+
+	public MainInterfaceController getMainInterfaceController() {
+		return mainInterfaceController;
+	}
+
+	public void setMainInterfaceController(
+			MainInterfaceController mainInterfaceController) {
+		this.mainInterfaceController = mainInterfaceController;
+	}
+
+	public void loadInterface(FXMLLoader loader, MyObserver obs, AnchorPane root){
+		Scene scene = new Scene(root); //create a scene with the GUI
+		primaryStage.setScene(scene); //put the scene in a stage (window)
+		primaryStage.setTitle("GALA printer Service by TN Studio"); //give a name to the window
+		primaryStage.setFullScreen(true); //set the window in fullscreen mode
+		obs.update();
 	}
 }
