@@ -74,16 +74,7 @@ public class MainInterfaceController implements MyObserver{
 
 			@Override
 			public void handle(MouseEvent event) {
-				/*FXMLLoader loader = new FXMLLoader(); //create a loader to load the GUI
-				loader.setLocation(Main.class.getResource("view/SettingsInterface.fxml")); //find the GUI file
-				AnchorPane root = loader.load(); //load the GUI in a AnchorPane
-				Scene scene = new Scene(root); //create a scene with the GUI
-				main.getPrimaryStage().setScene(scene); //put the scene in a stage (window)
-				main.getPrimaryStage().setFullScreen(true);
-				main.getPrimaryStage().setTitle("GALA printer Service by TN Studio"); //give a name to the window
-				SettingsInterfaceController settingsInterfaceController = loader.getController();
-				settingsInterfaceController.setMain(main); //give the model to the scene's controller
-				settingsInterfaceController.update();*/
+
 				main.loadInterface(main.getLoaderSettings(), main.getSettingsInterfaceController(), main.getSceneSettings());
 			}
 		});
@@ -103,7 +94,9 @@ public class MainInterfaceController implements MyObserver{
 	public void setMain(Main main){
 		this.main=main;
 
+		ObservableList<Photographe> names = FXCollections.observableArrayList(main.getPhotographeList());
 
+		listPhotographe.setItems(names);
 
 
 	}
@@ -111,10 +104,9 @@ public class MainInterfaceController implements MyObserver{
 	@Override
 	public void update() { //re-build the view
 
-		ObservableList<Photographe> names = FXCollections.observableArrayList(main.getPhotographeList());
+		Photographe selectedPhotograph = listPhotographe.getSelectionModel().getSelectedItem();
 		
-		listPhotographe.setItems(names);
-
+		
 		image = new Image(main.getFolder()); //load a picture
 		for(int i = 0; i<100; i++){ //create all the imageviews with the picture inside
 			for(int j = 0; j<main.getNb_photo(); j++){
