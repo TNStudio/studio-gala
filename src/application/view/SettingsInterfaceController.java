@@ -20,10 +20,24 @@ public class SettingsInterfaceController implements MyObserver{
 	private Button validateFolder;
 	
 	@FXML
+	private Button validateWidth;
+	
+	@FXML
+	private Button validateNBPhoto;
+	
+	@FXML
 	private Button quit;
 	
 	@FXML
 	private TextField folderField;
+	
+	@FXML
+	private TextField nb_photoField;
+	
+	@FXML
+	private TextField width_photoField;
+	
+	
 	
 	private Main main;
 	
@@ -36,7 +50,7 @@ public class SettingsInterfaceController implements MyObserver{
 
 			@Override
 			public void handle(MouseEvent event) {
-				main.loadMainInterface();
+				main.loadInterface(main.getLoaderMain(), main.getMainInterfaceController(), main.getSceneMain());
 			}
 		});
 		
@@ -45,6 +59,22 @@ public class SettingsInterfaceController implements MyObserver{
 			@Override
 			public void handle(MouseEvent event) {
 				main.setFolder(folderField.getText());
+			}
+		});
+		
+		validateWidth.setOnMouseClicked(new EventHandler<MouseEvent>() { //save settings to the data model
+
+			@Override
+			public void handle(MouseEvent event) {
+				main.setLargeur_photo(Integer.valueOf(width_photoField.getText()));
+			}
+		});
+		
+		validateNBPhoto.setOnMouseClicked(new EventHandler<MouseEvent>() { //save settings to the data model
+
+			@Override
+			public void handle(MouseEvent event) {
+				main.setNb_photo(Integer.valueOf(nb_photoField.getText()));
 			}
 		});
 	}
@@ -56,7 +86,8 @@ public class SettingsInterfaceController implements MyObserver{
 	@Override
 	public void update() {
 		folderField.setText(main.getFolder());
-		
+		nb_photoField.setText(String.valueOf(main.getNb_photo()));
+		width_photoField.setText(String.valueOf(main.getLargeur_photo()));
 	}
 
 }
