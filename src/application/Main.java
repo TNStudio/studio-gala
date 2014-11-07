@@ -6,7 +6,6 @@ import application.model.Photographe;
 import application.view.MainInterfaceController;
 import application.view.SettingsInterfaceController;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -38,9 +37,7 @@ public class Main extends Application {
 	private Scene sceneSettings;
 	
 	public Main(){
-
-		photographeList = FXCollections.observableArrayList();
-		photographeList = routine.loadImagesRoutine(folder);
+		setRoutine(new LoadingRoutines());
 //		photographeList = new ArrayList<Photographe>();
 //		for(int i=0; i<nb_photographe;i++){
 //			photographeList.add(new Photographe(i));
@@ -202,5 +199,19 @@ public class Main extends Application {
 		primaryStage.setTitle("GALA printer Service by TN Studio"); //give a name to the window
 		primaryStage.setFullScreen(true); //set the window in fullscreen mode
 		obs.update();
+	}
+
+	/**
+	 * @return the routine
+	 */
+	public LoadingRoutines getRoutine() {
+		return routine;
+	}
+
+	/**
+	 * @param routine the routine to set
+	 */
+	public void setRoutine(LoadingRoutines routine) {
+		this.routine = routine;
 	}
 }

@@ -1,16 +1,10 @@
 package application;
 
 import java.io.File;
-import java.util.ArrayList;
-
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableIntegerValue;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import application.model.Photo;
 import application.model.Photographe;
@@ -24,7 +18,7 @@ public class LoadingRoutines {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ObservableList<Photographe> loadImagesRoutine(String directory){		
+	public ObservableList<Photographe> loadImagesRoutine(String directory) throws Exception {		
 		File[] files;
 		File dir = new File(directory);
 		File subdir;

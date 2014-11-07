@@ -1,8 +1,5 @@
 package application.view;
 
-import org.omg.CORBA.INITIALIZE;
-
-import application.Main;
 import application.model.Photo;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -16,8 +13,6 @@ public class PrintQueueInterfaceController implements MyObserver {
 	private TableColumn<Photo, String> firstNameColumn;
 	@FXML
 	private TableColumn<Photo, String> lastNameColumn;
-	private Main mainApp;
-
 	public PrintQueueInterfaceController() {
 
 	}
