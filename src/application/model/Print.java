@@ -1,7 +1,5 @@
 package application.model;
 
-import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,8 +15,8 @@ public class Print {
 		return photoList;
 	}
 
-	public void setPhotoList(ArrayList<Photo> photoList) {
-		this.photoList = (ObservableList<Photo>) photoList;
+	public void setPhotoList(ObservableList<Photo> photoList) {
+		this.photoList = photoList;
 	}
 	
 	public void addPhoto(Photo photo) {
