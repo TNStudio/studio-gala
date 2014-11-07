@@ -1,18 +1,13 @@
 package application;
 
 
-import java.io.File;
-
-	
-import java.io.IOException;
-import java.util.ArrayList;
-
 import observerPattern.MyObserver;
-import application.model.Photo;
 import application.model.Photographe;
 import application.view.MainInterfaceController;
 import application.view.SettingsInterfaceController;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -28,7 +23,7 @@ public class Main extends Application {
 	private int nb_photographe = 3;
 	private int largeur_photo = 350;
 	private int nb_photo = 5;
-	private ArrayList<Photographe> photographeList;
+	private ObservableList<Photographe> photographeList;
 	private String folder ="file:\\E:\\Pictures\\pitimo.jpg";
 	private Stage primaryStage;
 	private LoadingRoutines routine;
@@ -44,7 +39,7 @@ public class Main extends Application {
 	
 	public Main(){
 
-		photographeList = new ArrayList<Photographe>();
+		photographeList = FXCollections.observableArrayList();
 		setPhotographeList(routine.loadImagesRoutine(folder));
 //		photographeList = new ArrayList<Photographe>();
 //		for(int i=0; i<nb_photographe;i++){
@@ -104,12 +99,12 @@ public class Main extends Application {
 		this.nb_photo = nb_photo;
 	}
 
-	public ArrayList<Photographe> getPhotographeList() {
+	public ObservableList<Photographe> getPhotographeList() {
 		return photographeList;
 	}
 
-	public void setPhotographeList(ArrayList<Photographe> photographeList) {
-		this.photographeList = photographeList;
+	public void setPhotographeList(ObservableList<Photographe> observableList) {
+		this.photographeList = observableList;
 	}
 
 	public Stage getPrimaryStage() {
