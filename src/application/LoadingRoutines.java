@@ -1,6 +1,9 @@
 package application;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,6 +17,7 @@ public class LoadingRoutines {
 
 	private ObservableList<Photo> photoList;
 	private ObservableList<Photographe> photographeList;
+	private WatchDir watchDir;
 	
 	public LoadingRoutines() {
 		
@@ -50,5 +54,15 @@ public class LoadingRoutines {
 			}
 		}
 		return photographeList;   
+	}
+	
+	public void startWatchDir(String dir) {
+		try {
+			watchDir = new WatchDir(Paths.get(dir), true);
+		} catch (IOException e) {
+			System.err.println("Dossier Introuvable !\n" + dir);
+			e.printStackTrace();
+		}
+		watchDir.processEvents();
 	}
 }
