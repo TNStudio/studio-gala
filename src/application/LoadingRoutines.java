@@ -1,7 +1,7 @@
 package application;
 
 import java.io.File;
-
+import java.io.IOException;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -15,9 +15,9 @@ public class LoadingRoutines {
 
 	private ObservableList<Photo> photoList;
 	private ObservableList<Photographe> photographeList;
-
+	
 	public LoadingRoutines() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public ObservableList<Photographe> loadImagesRoutine(String directory) throws Exception {		
