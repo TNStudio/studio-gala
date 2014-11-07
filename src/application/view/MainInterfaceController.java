@@ -74,11 +74,13 @@ public class MainInterfaceController implements MyObserver{
 
 	public void setMain(Main main){
 		this.main=main;
+		
 
-		System.out.println("in main");
+
+	}
+	
+	public void updatePhotographerList(){
 		listPhotographe.setItems(main.getPhotographeList());
-
-
 	}
 
 	@Override
@@ -86,9 +88,14 @@ public class MainInterfaceController implements MyObserver{
 
 		//Photographe selectedPhotograph = listPhotographe.getSelectionModel().getSelectedItem();
 		Photographe selectedPhotograph = main.getPhotographeList().get(0);
-		System.out.println("nombre de photo "+selectedPhotograph.getPhotoList().size());
+		for(int i = 0; i<main.getPhotographeList().size(); i++){
+			System.out.println("Photographe "+main.getPhotographeList().get(i).getNumero().getValue());
+			for(int j=0; j<main.getPhotographeList().get(i).getPhotoList().size();j++){
+				System.out.println("photo "+main.getPhotographeList().get(i).getPhotoList().get(j).getPath().getValue());
+			}
+		}
 		int nb_ligne = selectedPhotograph.getPhotoList().size()/main.getNb_photo();
-		System.out.println("nombre de ligne "+nb_ligne);
+
 		for(int i = 0; i<nb_ligne; i++){ //create all the imageviews with the picture inside
 			for(int j = 0; j<main.getNb_photo(); j++){
 				Image image = new Image("file:\\"+selectedPhotograph.getPhotoList().get(i+j).getPath().getValue());

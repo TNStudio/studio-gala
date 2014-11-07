@@ -43,6 +43,6 @@ public class Photographe {
 	}
 
 	public String toString(){
-		return name.toString();
+		return name.getValue();
 	}
 }
