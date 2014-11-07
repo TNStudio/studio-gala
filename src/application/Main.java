@@ -40,7 +40,7 @@ public class Main extends Application {
 	public Main(){
 
 		photographeList = FXCollections.observableArrayList();
-		setPhotographeList(routine.loadImagesRoutine(folder));
+		photographeList = routine.loadImagesRoutine(folder);
 //		photographeList = new ArrayList<Photographe>();
 //		for(int i=0; i<nb_photographe;i++){
 //			photographeList.add(new Photographe(i));
