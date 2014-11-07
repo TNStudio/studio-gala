@@ -75,7 +75,7 @@ public class MainInterfaceController implements MyObserver{
 	public void setMain(Main main){
 		this.main=main;
 
-
+		System.out.println("in main");
 		listPhotographe.setItems(main.getPhotographeList());
 
 
@@ -108,21 +108,40 @@ public class MainInterfaceController implements MyObserver{
 			}
 		}
 		int last_ligne = selectedPhotograph.getPhotoList().size()%main.getNb_photo();
-		for(int i=0;i<last_ligne;i++){
-			Image image = new Image("file:\\"+selectedPhotograph.getPhotoList().get(i+nb_ligne).getPath().toString());
-			ImageView imageView = new ImageView(image);
-			imageView.setFitWidth(main.getLargeur_photo()); //set the width of the pictures
-			imageView.setPreserveRatio(true);
-			imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		if(nb_ligne ==0){
+			for(int i=0;i<selectedPhotograph.getPhotoList().size();i++){
+				Image image = new Image("file:\\"+selectedPhotograph.getPhotoList().get(i).getPath().getValue());
+				ImageView imageView = new ImageView(image);
+				imageView.setFitWidth(main.getLargeur_photo()); //set the width of the pictures
+				imageView.setPreserveRatio(true);
+				imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-				@Override
-				public void handle(MouseEvent event) {
-					System.out.println("clicked");						
-				}
-			});
-			imageView.setCursor(Cursor.HAND); //change the cursor appearance
-			photoGridPane.add(imageView, nb_ligne, i); //add the imageView to the GUI
+					@Override
+					public void handle(MouseEvent event) {
+						System.out.println("clicked");						
+					}
+				});
+				imageView.setCursor(Cursor.HAND); //change the cursor appearance
+				photoGridPane.add(imageView, i, 0); //add the imageView to the GUI
+			}
+		} else {
+			for(int i=0;i<last_ligne;i++){
+				Image image = new Image("file:\\"+selectedPhotograph.getPhotoList().get(i+nb_ligne).getPath().getValue());
+				ImageView imageView = new ImageView(image);
+				imageView.setFitWidth(main.getLargeur_photo()); //set the width of the pictures
+				imageView.setPreserveRatio(true);
+				imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+					@Override
+					public void handle(MouseEvent event) {
+						System.out.println("clicked");						
+					}
+				});
+				imageView.setCursor(Cursor.HAND); //change the cursor appearance
+				photoGridPane.add(imageView, nb_ligne, i); //add the imageView to the GUI
+			}
 		}
+		
 
 	}
 
