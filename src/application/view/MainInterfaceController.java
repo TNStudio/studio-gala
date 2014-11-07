@@ -84,12 +84,15 @@ public class MainInterfaceController implements MyObserver{
 	@Override
 	public void update() { //re-build the view
 
-		Photographe selectedPhotograph = listPhotographe.getSelectionModel().getSelectedItem();
-		
+		//Photographe selectedPhotograph = listPhotographe.getSelectionModel().getSelectedItem();
+		Photographe selectedPhotograph = main.getPhotographeList().get(0);
+		System.out.println("nombre de photo "+selectedPhotograph.getPhotoList().size());
 		int nb_ligne = selectedPhotograph.getPhotoList().size()/main.getNb_photo();
+		System.out.println("nombre de ligne "+nb_ligne);
 		for(int i = 0; i<nb_ligne; i++){ //create all the imageviews with the picture inside
 			for(int j = 0; j<main.getNb_photo(); j++){
-				Image image = new Image("file:\\"+selectedPhotograph.getPhotoList().get(i+j).getPath().toString());
+				Image image = new Image("file:\\"+selectedPhotograph.getPhotoList().get(i+j).getPath().getValue());
+				System.out.println(selectedPhotograph.getPhotoList().get(i+j).getPath().getValue());
 				ImageView imageView = new ImageView(image);
 				imageView.setFitWidth(main.getLargeur_photo()); //set the width of the pictures
 				imageView.setPreserveRatio(true);
