@@ -1,7 +1,6 @@
 package application;
 
 import java.io.File;
-import java.io.IOException;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -29,7 +28,6 @@ public class LoadingRoutines {
 		StringProperty photo = new SimpleStringProperty();
 		IntegerProperty number = new SimpleIntegerProperty();
 		photographeList = FXCollections.observableArrayList();
-		photoList = FXCollections.observableArrayList();
 
 		for(String s : photographes) {
 			System.out.println(s);
@@ -39,7 +37,7 @@ public class LoadingRoutines {
 				photographeList.add(new Photographe(number));
 				subdir = new File(directory + "\\" + s);
 				files = subdir.listFiles();
-				photoList.clear();
+				photoList = FXCollections.observableArrayList();
 				for(File f : files) {
 					if(f.getName().matches("^(.*?)")){
 						photo = new SimpleStringProperty();
