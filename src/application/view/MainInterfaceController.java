@@ -85,11 +85,11 @@ public class MainInterfaceController implements MyObserver{
 	public void update() { //re-build the view
 
 		Photographe selectedPhotograph = listPhotographe.getSelectionModel().getSelectedItem();
-		//TODO
 		
-		image = new Image(main.getFolder()); //load a picture
-		for(int i = 0; i<100; i++){ //create all the imageviews with the picture inside
+		int nb_ligne = selectedPhotograph.getPhotoList().size()/main.getNb_photo();
+		for(int i = 0; i<nb_ligne; i++){ //create all the imageviews with the picture inside
 			for(int j = 0; j<main.getNb_photo(); j++){
+				Image image = new Image("file:\\"+selectedPhotograph.getPhotoList().get(i+j).getPath().toString());
 				ImageView imageView = new ImageView(image);
 				imageView.setFitWidth(main.getLargeur_photo()); //set the width of the pictures
 				imageView.setPreserveRatio(true);
@@ -103,6 +103,22 @@ public class MainInterfaceController implements MyObserver{
 				imageView.setCursor(Cursor.HAND); //change the cursor appearance
 				photoGridPane.add(imageView, j, i); //add the imageView to the GUI
 			}
+		}
+		int last_ligne = selectedPhotograph.getPhotoList().size()%main.getNb_photo();
+		for(int i=0;i<last_ligne;i++){
+			Image image = new Image("file:\\"+selectedPhotograph.getPhotoList().get(i+nb_ligne).getPath().toString());
+			ImageView imageView = new ImageView(image);
+			imageView.setFitWidth(main.getLargeur_photo()); //set the width of the pictures
+			imageView.setPreserveRatio(true);
+			imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent event) {
+					System.out.println("clicked");						
+				}
+			});
+			imageView.setCursor(Cursor.HAND); //change the cursor appearance
+			photoGridPane.add(imageView, nb_ligne, i); //add the imageView to the GUI
 		}
 
 	}

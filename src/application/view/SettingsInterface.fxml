@@ -12,9 +12,9 @@
          <children>
             <GridPane>
               <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -24,16 +24,13 @@
                <children>
                   <Label text="Destination folder" />
                   <TextField fx:id="folderField" GridPane.columnIndex="1" />
-                  <Button fx:id="validateFolder" mnemonicParsing="false" text="Validate setting" GridPane.columnIndex="2" />
                   <Label text="Set the Width of the photos" GridPane.rowIndex="1" />
                   <TextField fx:id="width_photoField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Button fx:id="validateWidth" mnemonicParsing="false" text="Validate setting" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <Label text="Set the number of the photos" GridPane.rowIndex="2" />
                   <TextField fx:id="nb_photoField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button fx:id="validateNBPhoto" mnemonicParsing="false" text="Validate setting" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                </children>
             </GridPane>
-            <Button fx:id="quit" mnemonicParsing="false" text="Quit" />
+            <Button fx:id="quit" mnemonicParsing="false" text="Validate" />
          </children>
       </VBox>
    </children>

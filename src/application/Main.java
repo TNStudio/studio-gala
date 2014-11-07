@@ -23,7 +23,7 @@ public class Main extends Application {
 	private int largeur_photo = 350;
 	private int nb_photo = 5;
 	private ObservableList<Photographe> photographeList;
-	private String folder ="file:\\E:\\Pictures\\pitimo.jpg";
+	private String folder ="E:\\Pictures\\pitimo.jpg";
 	private Stage primaryStage;
 	private LoadingRoutines routine;
 	
