@@ -39,7 +39,7 @@ public class MainInterfaceController implements MyObserver{
 	private Main main;
 	private GridPane photoGridPane;
 
-	private Image image;
+	
 
 	//public static final ObservableList<String> names = FXCollections.observableArrayList();
 

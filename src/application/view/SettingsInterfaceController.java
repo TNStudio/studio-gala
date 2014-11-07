@@ -47,12 +47,12 @@ public class SettingsInterfaceController implements MyObserver{
 			public void handle(MouseEvent event) {
 				try {
 					main.setNb_photo(Integer.valueOf(nb_photoField.getText()));
-					main.setFolder("file\\:"+folderField.getText());
+					main.setFolder(folderField.getText());
 					main.setLargeur_photo(Integer.valueOf(width_photoField.getText()));
 					main.setPhotographeList(main.getRoutine().loadImagesRoutine(main.getFolder()));
 				} catch (Exception e) {
 					System.err.println("Dossier non trouvé !\n" + main.getFolder());
-//					e.printStackTrace();
+					e.printStackTrace();
 				}
 				main.loadInterface(main.getLoaderMain(), main.getMainInterfaceController(), main.getSceneMain());
 			}

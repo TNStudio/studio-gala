@@ -1,6 +1,7 @@
 package application.model;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +14,7 @@ public class Photographe {
 	
 	public Photographe(IntegerProperty numero){
 		this.numero=numero;
-		name.setValue("Photographe numéro " + numero.getValue());
+		name = new SimpleStringProperty("Photographe numéro " + numero.getValue());
 		photoList = FXCollections.observableArrayList();
 	}
 
