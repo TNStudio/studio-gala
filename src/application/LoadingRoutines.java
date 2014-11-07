@@ -38,6 +38,7 @@ public class LoadingRoutines {
 				photographeList.add(new Photographe(number));
 				subdir = new File(directory + "\\" + s);
 				files = subdir.listFiles();
+				photoList.clear();
 				for(File f : files) {
 					if(f.getName().matches("^(.*?)")){
 						photo.setValue(f.getAbsolutePath());
