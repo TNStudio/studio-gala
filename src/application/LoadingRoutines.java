@@ -34,6 +34,7 @@ public class LoadingRoutines {
 		for(String s : photographes) {
 			System.out.println(s);
 			if(!s.contains(".")) {
+				number = new SimpleIntegerProperty();
 				number.setValue(Integer.parseInt(s));
 				photographeList.add(new Photographe(number));
 				subdir = new File(directory + "\\" + s);
@@ -41,9 +42,10 @@ public class LoadingRoutines {
 				photoList.clear();
 				for(File f : files) {
 					if(f.getName().matches("^(.*?)")){
+						photo = new SimpleStringProperty();
 						photo.setValue(f.getAbsolutePath());
-						photoList.add(new Photo(photo, number));
-						System.out.println(photo.getValue());
+						photoList.add(new Photo(photo));
+						System.out.println(photoList.get(photoList.size()-1));
 					}
 				}
 				photographeList.get(photographeList.size()-1).setPhotoList(photoList);
