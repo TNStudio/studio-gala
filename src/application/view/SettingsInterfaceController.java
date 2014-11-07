@@ -46,36 +46,15 @@ public class SettingsInterfaceController implements MyObserver{
 			@Override
 			public void handle(MouseEvent event) {
 				try {
+					main.setNb_photo(Integer.valueOf(nb_photoField.getText()));
+					main.setFolder("file\\:"+folderField.getText());
+					main.setLargeur_photo(Integer.valueOf(width_photoField.getText()));
 					main.setPhotographeList(main.getRoutine().loadImagesRoutine(main.getFolder()));
 				} catch (Exception e) {
 					System.err.println("Dossier non trouvé !\n" + main.getFolder());
 //					e.printStackTrace();
 				}
 				main.loadInterface(main.getLoaderMain(), main.getMainInterfaceController(), main.getSceneMain());
-			}
-		});
-		
-		validateFolder.setOnMouseClicked(new EventHandler<MouseEvent>() { //save settings to the data model
-
-			@Override
-			public void handle(MouseEvent event) {
-				main.setFolder(folderField.getText());
-			}
-		});
-		
-		validateWidth.setOnMouseClicked(new EventHandler<MouseEvent>() { //save settings to the data model
-
-			@Override
-			public void handle(MouseEvent event) {
-				main.setLargeur_photo(Integer.valueOf(width_photoField.getText()));
-			}
-		});
-		
-		validateNBPhoto.setOnMouseClicked(new EventHandler<MouseEvent>() { //save settings to the data model
-
-			@Override
-			public void handle(MouseEvent event) {
-				main.setNb_photo(Integer.valueOf(nb_photoField.getText()));
 			}
 		});
 	}
