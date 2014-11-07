@@ -43,6 +43,7 @@ public class LoadingRoutines {
 					if(f.getName().matches("^(.*?)")){
 						photo.setValue(f.getAbsolutePath());
 						photoList.add(new Photo(photo, number));
+						System.out.println(photo.getValue());
 					}
 				}
 				photographeList.get(photographeList.size()-1).setPhotoList(photoList);
