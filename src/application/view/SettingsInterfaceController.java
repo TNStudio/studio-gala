@@ -50,6 +50,7 @@ public class SettingsInterfaceController implements MyObserver{
 					main.setFolder(folderField.getText());
 					main.setLargeur_photo(Integer.valueOf(width_photoField.getText()));
 					main.setPhotographeList(main.getRoutine().loadImagesRoutine(main.getFolder()));
+					main.getMainInterfaceController().updatePhotographerList();
 				} catch (Exception e) {
 					System.err.println("Dossier non trouvé !\n" + main.getFolder());
 					e.printStackTrace();
