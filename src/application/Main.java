@@ -38,6 +38,8 @@ public class Main extends Application {
 	private MainInterfaceController mainInterfaceController;
 	private AnchorPane rootMain;
 	private AnchorPane rootSettings;
+	private Scene sceneMain;
+	private Scene sceneSettings;
 	
 	public Main(){
 
@@ -61,7 +63,9 @@ public class Main extends Application {
 			mainInterfaceController = loaderMain.getController();
 			settingsInterfaceController.setMain(this);
 			mainInterfaceController.setMain(this);
-			this.loadInterface(loaderSettings, settingsInterfaceController, rootSettings);
+			sceneMain = new Scene(rootMain); //create a scene with the GUI
+			sceneSettings = new Scene(rootSettings); //create a scene with the GUI
+			this.loadInterface(loaderSettings, settingsInterfaceController, sceneSettings);
 			primaryStage.show(); //display the window
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -176,9 +180,26 @@ public class Main extends Application {
 			MainInterfaceController mainInterfaceController) {
 		this.mainInterfaceController = mainInterfaceController;
 	}
+	
+	
 
-	public void loadInterface(FXMLLoader loader, MyObserver obs, AnchorPane root){
-		Scene scene = new Scene(root); //create a scene with the GUI
+	public Scene getSceneMain() {
+		return sceneMain;
+	}
+
+	public void setSceneMain(Scene sceneMain) {
+		this.sceneMain = sceneMain;
+	}
+
+	public Scene getSceneSettings() {
+		return sceneSettings;
+	}
+
+	public void setSceneSettings(Scene sceneSettings) {
+		this.sceneSettings = sceneSettings;
+	}
+
+	public void loadInterface(FXMLLoader loader, MyObserver obs, Scene scene){
 		primaryStage.setScene(scene); //put the scene in a stage (window)
 		primaryStage.setTitle("GALA printer Service by TN Studio"); //give a name to the window
 		primaryStage.setFullScreen(true); //set the window in fullscreen mode

@@ -50,7 +50,7 @@ public class SettingsInterfaceController implements MyObserver{
 
 			@Override
 			public void handle(MouseEvent event) {
-				main.loadInterface(main.getLoaderMain(), main.getMainInterfaceController(), main.getRootMain());
+				main.loadInterface(main.getLoaderMain(), main.getMainInterfaceController(), main.getSceneMain());
 			}
 		});
 		

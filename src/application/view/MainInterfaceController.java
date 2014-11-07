@@ -74,20 +74,17 @@ public class MainInterfaceController implements MyObserver{
 
 			@Override
 			public void handle(MouseEvent event) {
-				try {
-					FXMLLoader loader = new FXMLLoader(); //create a loader to load the GUI
-					loader.setLocation(Main.class.getResource("view/SettingsInterface.fxml")); //find the GUI file
-					AnchorPane root = loader.load(); //load the GUI in a AnchorPane
-					Scene scene = new Scene(root); //create a scene with the GUI
-					main.getPrimaryStage().setScene(scene); //put the scene in a stage (window)
-					main.getPrimaryStage().setFullScreen(true);
-					main.getPrimaryStage().setTitle("GALA printer Service by TN Studio"); //give a name to the window
-					SettingsInterfaceController settingsInterfaceController = loader.getController();
-					settingsInterfaceController.setMain(main); //give the model to the scene's controller
-					settingsInterfaceController.update();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				/*FXMLLoader loader = new FXMLLoader(); //create a loader to load the GUI
+				loader.setLocation(Main.class.getResource("view/SettingsInterface.fxml")); //find the GUI file
+				AnchorPane root = loader.load(); //load the GUI in a AnchorPane
+				Scene scene = new Scene(root); //create a scene with the GUI
+				main.getPrimaryStage().setScene(scene); //put the scene in a stage (window)
+				main.getPrimaryStage().setFullScreen(true);
+				main.getPrimaryStage().setTitle("GALA printer Service by TN Studio"); //give a name to the window
+				SettingsInterfaceController settingsInterfaceController = loader.getController();
+				settingsInterfaceController.setMain(main); //give the model to the scene's controller
+				settingsInterfaceController.update();*/
+				main.loadInterface(main.getLoaderSettings(), main.getSettingsInterfaceController(), main.getSceneSettings());
 			}
 		});
 
