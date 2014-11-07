@@ -19,7 +19,7 @@
                <children>
                   <HBox>
                      <children>
-                        <ListView fx:id="listPhotographe" prefHeight="200.0" prefWidth="200.0" />
+                        <ListView fx:id="listPhotographe" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" />
                      </children></HBox>
                   <Button fx:id="settings" alignment="TOP_LEFT" contentDisplay="TOP" mnemonicParsing="false" text="Settings" VBox.vgrow="ALWAYS">
                      <VBox.margin>
