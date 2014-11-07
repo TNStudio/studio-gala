@@ -31,15 +31,10 @@ public class Main extends Application {
 	
 	public Main(){
 
-<<<<<<< HEAD
 		photographeList = new ArrayList<Photographe>();
-		for(int i=0; i<nb_photogrpahe;i++){
+		for(int i=0; i<nb_photographe;i++){
 			photographeList.add(new Photographe(i));
 		}
-		
-=======
-
->>>>>>> 5d5a023284b735393b7aaffb9f754755183d1207
 	}
 
 	@Override
