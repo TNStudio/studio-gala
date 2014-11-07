@@ -85,17 +85,26 @@ public class MainInterfaceController implements MyObserver{
 
 	@Override
 	public void update() { //re-build the view
-
-		//Photographe selectedPhotograph = listPhotographe.getSelectionModel().getSelectedItem();
-		Photographe selectedPhotograph = main.getPhotographeList().get(0);
+		System.out.println("in update");
+		Photographe selectedPhotograph = listPhotographe.getSelectionModel().getSelectedItem();
+		try {
+			System.out.println( listPhotographe.getSelectionModel().getSelectedItem().getName().getValue());
+		} catch (NullPointerException e) {
+			listPhotographe.getSelectionModel().select(0);
+			selectedPhotograph = listPhotographe.getSelectionModel().getSelectedItem();
+		}
+		//Photographe selectedPhotograph = main.getPhotographeList().get(0);
+		
 		for(int i = 0; i<main.getPhotographeList().size(); i++){
 			System.out.println("Photographe "+main.getPhotographeList().get(i).getNumero().getValue());
 			for(int j=0; j<main.getPhotographeList().get(i).getPhotoList().size();j++){
 				System.out.println("photo "+main.getPhotographeList().get(i).getPhotoList().get(j).getPath().getValue());
 			}
 		}
-		int nb_ligne = selectedPhotograph.getPhotoList().size()/main.getNb_photo();
 
+		photoGridPane.getChildren().clear();
+		
+		int nb_ligne = selectedPhotograph.getPhotoList().size()/main.getNb_photo();
 		for(int i = 0; i<nb_ligne; i++){ //create all the imageviews with the picture inside
 			for(int j = 0; j<main.getNb_photo(); j++){
 				Image image = new Image("file:\\"+selectedPhotograph.getPhotoList().get(i+j).getPath().getValue());
@@ -145,11 +154,9 @@ public class MainInterfaceController implements MyObserver{
 					}
 				});
 				imageView.setCursor(Cursor.HAND); //change the cursor appearance
-				photoGridPane.add(imageView, nb_ligne, i); //add the imageView to the GUI
+				photoGridPane.add(imageView, i, nb_ligne); //add the imageView to the GUI
 			}
 		}
-		
-
 	}
 
 }
