@@ -3,36 +3,37 @@
  */
 package application.model;
 
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableIntegerValue;
+
 /**
  * A class that represent the photos in the data model
  * @author Martin
  *
  */
 public class Photo {
-	
-	private String path;
-	private int photographe;
-	
-	public Photo(String path, int photographe){
+
+	private StringProperty path;
+	private ObservableIntegerValue photographe;
+
+	public Photo(StringProperty path, ObservableIntegerValue photographe){
 		this.path = path;
 		this.photographe = photographe;
 	}
 
-	public String getPath() {
+	public StringProperty getPath() {
 		return path;
 	}
 
-	public void setPath(String path) {
+	public void setPath(StringProperty path) {
 		this.path = path;
 	}
 
-	public int getPhotograhe() {
+	public ObservableIntegerValue getPhotograhe() {
 		return photographe;
 	}
 
-	public void setPhotograhe(int photograhe) {
-		this.photographe = photograhe;
+	public void setPhotograhe(ObservableIntegerValue photographe) {
+		this.photographe = photographe;
 	}
-
-	
 }
