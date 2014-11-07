@@ -1,42 +1,44 @@
 package application.model;
 
-import java.util.ArrayList;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Photographe {
 	
-	private ArrayList<Photo> photoList;
+	private ObservableList<Photo> photoList;
+	private IntegerProperty numero;
+	private StringProperty name;
 	
-	private int numero;
-	
-	private String name;
-	
-	public Photographe(int numero){
+	public Photographe(IntegerProperty numero){
 		this.numero=numero;
-		name = "Photographe numéro "+numero;
-		photoList = new ArrayList<Photo>();
+		name.setValue("Photographe numéro " + numero.getValue());
+		photoList = FXCollections.observableArrayList();
 	}
 
-	public ArrayList<Photo> getPhotoList() {
+	public ObservableList<Photo> getPhotoList() {
 		return photoList;
 	}
 
-	public void setPhotoList(ArrayList<Photo> photoList) {
+	public void setPhotoList(ObservableList<Photo> photoList) {
 		this.photoList = photoList;
 	}
 
-	public int getNumero() {
+	public IntegerProperty getNumero() {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(IntegerProperty numero) {
 		this.numero = numero;
 	}
 
-	public String getName() {
+	public StringProperty getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(StringProperty name) {
 		this.name = name;
 	}
 

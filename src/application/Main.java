@@ -28,13 +28,16 @@ public class Main extends Application {
 	private ArrayList<Photographe> photographeList;
 	private String folder ="file:\\E:\\Pictures\\pitimoi.jpg";
 	private Stage primaryStage;
+	private LoadingRoutines routine;
 	
 	public Main(){
 
 		photographeList = new ArrayList<Photographe>();
-		for(int i=0; i<nb_photographe;i++){
-			photographeList.add(new Photographe(i));
-		}
+		setPhotographeList(routine.loadImagesRoutine(folder));
+//		photographeList = new ArrayList<Photographe>();
+//		for(int i=0; i<nb_photographe;i++){
+//			photographeList.add(new Photographe(i));
+//		}
 	}
 
 	@Override
