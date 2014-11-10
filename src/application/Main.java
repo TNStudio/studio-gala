@@ -3,6 +3,7 @@ package application;
 
 import observerPattern.MyObserver;
 import application.model.Photographe;
+import application.view.ImageInterfaceController;
 import application.view.MainInterfaceController;
 import application.view.SettingsInterfaceController;
 import javafx.application.Application;
@@ -10,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -29,8 +31,10 @@ public class Main extends Application {
 	
 	private FXMLLoader loaderMain;
 	private FXMLLoader loaderSettings;
+	private FXMLLoader loaderImage;
 	private SettingsInterfaceController settingsInterfaceController;
 	private MainInterfaceController mainInterfaceController;
+	private ImageInterfaceController imageInterfaceController;
 	private AnchorPane rootMain;
 	private AnchorPane rootSettings;
 	private Scene sceneMain;
@@ -51,8 +55,10 @@ public class Main extends Application {
 		try {
 			loaderMain = new FXMLLoader();
 			loaderSettings = new FXMLLoader();
+			loaderImage = new FXMLLoader();
 			loaderSettings.setLocation(Main.class.getResource("view/SettingsInterface.fxml")); //find the GUI file
 			loaderMain.setLocation(Main.class.getResource("view/MainInterface.fxml")); //find the GUI file
+			loaderImage.setLocation(Main.class.getResource("view/ImageInterface.fxml")); //find the GUI file
 			rootSettings = loaderSettings.load();
 			rootMain = loaderMain.load(); //load the GUI in a AnchorPane
 			settingsInterfaceController = loaderSettings.getController();
@@ -199,6 +205,7 @@ public class Main extends Application {
 		primaryStage.setScene(scene); //put the scene in a stage (window)
 		primaryStage.setTitle("GALA printer Service by TN Studio"); //give a name to the window
 		primaryStage.setFullScreen(true); //set the window in fullscreen mode
+		primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 		obs.update();
 	}
 
