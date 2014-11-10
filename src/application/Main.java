@@ -38,6 +38,7 @@ public class Main extends Application {
 	
 	public Main(){
 		setRoutine(new LoadingRoutines());
+				
 //		photographeList = new ArrayList<Photographe>();
 //		for(int i=0; i<nb_photographe;i++){
 //			photographeList.add(new Photographe(i));

@@ -10,6 +10,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import application.model.Photo;
 import application.model.Photographe;
 
@@ -18,6 +19,8 @@ public class LoadingRoutines {
 	private ObservableList<Photo> photoList;
 	private ObservableList<Photographe> photographeList;
 	private WatchDir watchDir;
+	private Task<Void> backgroundFolderScan;
+	
 	
 	public LoadingRoutines() {
 		
@@ -53,6 +56,7 @@ public class LoadingRoutines {
 				photographeList.get(photographeList.size()-1).setPhotoList(photoList);
 			}
 		}
+//		startWatchDir(directory);
 		return photographeList;   
 	}
 	
@@ -63,6 +67,14 @@ public class LoadingRoutines {
 			System.err.println("Dossier Introuvable !\n" + dir);
 			e.printStackTrace();
 		}
-		watchDir.processEvents();
+		backgroundFolderScan = new Task<Void>() {
+
+			@Override
+			protected Void call() throws Exception {
+				watchDir.processEvents();
+				return null;
+			}
+		};
+		new Thread(backgroundFolderScan).start();		
 	}
 }
