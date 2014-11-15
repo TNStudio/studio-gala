@@ -6,7 +6,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import observerPattern.MyObserver;
 
 public class SettingsInterfaceController implements MyObserver{
@@ -32,14 +36,34 @@ public class SettingsInterfaceController implements MyObserver{
 	@FXML
 	private TextField width_photoField;
 	
-	
+	@FXML
+	private AnchorPane container;
 	
 	private Main main;
 	
 	@FXML
 	private void initialize(){
 		
-		
+		container.setOnKeyPressed(new EventHandler<KeyEvent>(){
+
+			@Override
+			public void handle(KeyEvent arg0) {
+				if(arg0.getCode() == KeyCode.ENTER){
+					try {
+						main.setNb_photo(Integer.valueOf(nb_photoField.getText()));
+						main.setFolder(folderField.getText());
+						main.setLargeur_photo(Integer.valueOf(width_photoField.getText()));
+						main.setPhotographeList(main.getRoutine().loadImagesRoutine(main.getFolder()));
+						main.getMainInterfaceController().updatePhotographerList();
+					} catch (Exception e) {
+						System.err.println("Dossier non trouvé !\n" + main.getFolder());
+						e.printStackTrace();
+					}
+					main.loadInterface(main.getLoaderMain(), main.getMainInterfaceController(), main.getSceneMain());
+				}
+			}
+			
+		});
 		
 		quit.setOnMouseClicked(new EventHandler<MouseEvent>() { //go to the main scene
 

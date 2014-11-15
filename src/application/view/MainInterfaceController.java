@@ -71,6 +71,15 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 				update();
 			}
 		});
+		
+		listPhotographe.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				//ListView<Photographe> list = (ListView<Photographe>) arg0.getSource();
+				update();
+			}
+		});
 
 
 	}
