@@ -37,8 +37,10 @@ public class Main extends Application {
 	private ImageInterfaceController imageInterfaceController;
 	private AnchorPane rootMain;
 	private AnchorPane rootSettings;
+	private AnchorPane rootImage;
 	private Scene sceneMain;
 	private Scene sceneSettings;
+	private Scene sceneImage;
 	
 	public Main(){
 		setRoutine(new LoadingRoutines());
@@ -61,12 +63,16 @@ public class Main extends Application {
 			loaderImage.setLocation(Main.class.getResource("view/ImageInterface.fxml")); //find the GUI file
 			rootSettings = loaderSettings.load();
 			rootMain = loaderMain.load(); //load the GUI in a AnchorPane
+			rootImage = loaderImage.load();
 			settingsInterfaceController = loaderSettings.getController();
 			mainInterfaceController = loaderMain.getController();
+			imageInterfaceController = loaderImage.getController();
 			settingsInterfaceController.setMain(this);
 			mainInterfaceController.setMain(this);
+			imageInterfaceController.setMain(this);
 			sceneMain = new Scene(rootMain); //create a scene with the GUI
 			sceneSettings = new Scene(rootSettings); //create a scene with the GUI
+			sceneImage = new Scene(rootImage);
 			this.loadInterface(loaderSettings, settingsInterfaceController, sceneSettings);
 			primaryStage.show(); //display the window
 		} catch(Exception e) {
@@ -199,6 +205,41 @@ public class Main extends Application {
 
 	public void setSceneSettings(Scene sceneSettings) {
 		this.sceneSettings = sceneSettings;
+	}
+	
+	
+
+	public FXMLLoader getLoaderImage() {
+		return loaderImage;
+	}
+
+	public void setLoaderImage(FXMLLoader loaderImage) {
+		this.loaderImage = loaderImage;
+	}
+
+	public ImageInterfaceController getImageInterfaceController() {
+		return imageInterfaceController;
+	}
+
+	public void setImageInterfaceController(
+			ImageInterfaceController imageInterfaceController) {
+		this.imageInterfaceController = imageInterfaceController;
+	}
+
+	public AnchorPane getRootImage() {
+		return rootImage;
+	}
+
+	public void setRootImage(AnchorPane rootImage) {
+		this.rootImage = rootImage;
+	}
+
+	public Scene getSceneImage() {
+		return sceneImage;
+	}
+
+	public void setSceneImage(Scene sceneImage) {
+		this.sceneImage = sceneImage;
 	}
 
 	public void loadInterface(FXMLLoader loader, MyObserver obs, Scene scene){
