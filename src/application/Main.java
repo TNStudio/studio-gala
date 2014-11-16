@@ -41,6 +41,7 @@ public class Main extends Application {
 	private Scene sceneSettings;
 	
 	public Main(){
+//		System.setProperty("sun.java2d.opengl", "true");
 		setRoutine(new LoadingRoutines());
 				
 //		photographeList = new ArrayList<Photographe>();
