@@ -6,23 +6,22 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.ImageInterfaceController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <ImageView pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+            <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
          </center>
-         <bottom>
+         <right>
             <BorderPane BorderPane.alignment="CENTER">
-               <left>
-                  <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
-               </left>
-               <right>
-                  <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
-               </right>
+               <top>
+                  <Button fx:id="quit" mnemonicParsing="false" text="Retour" BorderPane.alignment="CENTER" />
+               </top>
+               <bottom>
+                  <Button fx:id="print" mnemonicParsing="false" text="Imprimer !" BorderPane.alignment="CENTER" />
+               </bottom>
             </BorderPane>
-         </bottom>
+         </right>
       </BorderPane>
    </children>
 </AnchorPane>
