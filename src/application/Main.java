@@ -8,8 +8,10 @@ import application.view.MainInterfaceController;
 import application.view.SettingsInterfaceController;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
@@ -54,6 +56,14 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage=primaryStage;
+		primaryStage.setOnHiding(new EventHandler<WindowEvent>() {
+			
+			@Override
+			public void handle(WindowEvent arg0) {
+				primaryStage.show();
+				
+			}
+		});
 		try {
 			loaderMain = new FXMLLoader();
 			loaderSettings = new FXMLLoader();
