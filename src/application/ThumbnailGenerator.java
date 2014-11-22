@@ -2,9 +2,10 @@ package application;
 
 import java.io.File;
 
-import javafx.scene.canvas.GraphicsContext;
+import javax.imageio.ImageIO;
+
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
 
 /*
 *
@@ -40,39 +41,45 @@ public class ThumbnailGenerator
  
  public void transform(String originalFile, String thumbnailFile, int thumbWidth, int thumbHeight, int quality) throws Exception 
  {
-   Image image = new Image(originalFile);
+   Image image = new Image(originalFile, thumbWidth, thumbHeight, true, true, true);
      
-     double thumbRatio = (double)thumbWidth / (double)thumbHeight;
-     int imageWidth    = (int) image.getWidth();
-     int imageHeight   = (int) image.getHeight();
-     double imageRatio = (double)imageWidth / (double)imageHeight;
-     if (thumbRatio < imageRatio) 
-     {
-       thumbHeight = (int)(thumbWidth / imageRatio);
-     } 
-     else 
-     {
-         thumbWidth = (int)(thumbHeight * imageRatio);
-     }
-     
-   if(imageWidth < thumbWidth && imageHeight < thumbHeight)
-   {
-     thumbWidth = imageWidth;
-     thumbHeight = imageHeight;
-   }
-   else if(imageWidth < thumbWidth)
-     thumbWidth = imageWidth;
-   else if(imageHeight < thumbHeight)
-     thumbHeight = imageHeight;
+//     double thumbRatio = (double)thumbWidth / (double)thumbHeight;
+//     int imageWidth    = (int) image.getWidth();
+//     int imageHeight   = (int) image.getHeight();
+//     double imageRatio = (double)imageWidth / (double)imageHeight;
+//     if (thumbRatio < imageRatio) 
+//     {
+//       thumbHeight = (int)(thumbWidth / imageRatio);
+//     } 
+//     else 
+//     {
+//         thumbWidth = (int)(thumbHeight * imageRatio);
+//     }
+//     
+//   if(imageWidth < thumbWidth && imageHeight < thumbHeight)
+//   {
+//     thumbWidth = imageWidth;
+//     thumbHeight = imageHeight;
+//   }
+//   else if(imageWidth < thumbWidth)
+//     thumbWidth = imageWidth;
+//   else if(imageHeight < thumbHeight)
+//     thumbHeight = imageHeight;
 
-     WritableImage thumbImage = new WritableImage(thumbWidth, thumbHeight);
-     GraphicsContext graphics2D = thumbImage.createGraphics();
-     graphics2D.setBackground(Color.WHITE);
-     graphics2D.setPaint(Color.WHITE); 
-     graphics2D.fillRect(0, 0, thumbWidth, thumbHeight);
-     graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-     graphics2D.drawImage(image, 0, 0, thumbWidth, thumbHeight, null);
+//     WritableImage thumbImage = new WritableImage(thumbWidth, thumbHeight);
+//     GraphicsContext graphics2D = thumbImage.createGraphics();
+//     graphics2D.setBackground(Color.WHITE);
+//     graphics2D.setPaint(Color.WHITE); 
+//     graphics2D.fillRect(0, 0, thumbWidth, thumbHeight);
+//     graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+//     graphics2D.drawImage(image, 0, 0, thumbWidth, thumbHeight, null);
      
-   javax.imageio.ImageIO.write(thumbImage, "JPG", new File(thumbnailFile));
+     File outFileImage = new File(thumbnailFile);
+
+     try {
+         ImageIO.write(SwingFXUtils.fromFXImage(image, null), ".png", outFileImage);
+     } catch (Exception e) {
+         System.err.println("Erreur de génération de la miniature "+originalFile);
+     }
  }
 }
