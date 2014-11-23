@@ -2,6 +2,8 @@ package application.view;
 
 import observerPattern.MyObserver;
 import application.Main;
+import application.model.MyImage;
+import application.model.Photographe;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -23,6 +25,8 @@ public class ImageInterfaceController implements MyObserver{
 	
 	private Main main;
 	private Image imageToDisplay;
+	private Photographe photographe;
+	private int indice = 0;
 	
 	@FXML
 	private void initialize(){
@@ -47,8 +51,10 @@ public class ImageInterfaceController implements MyObserver{
 		return imageToDisplay;
 	}
 
-	public void setImageToDisplay(Image imageToDisplay) {
-		this.imageToDisplay = imageToDisplay;
+	public void setImageToDisplay(Photographe photographe, int indice) {
+		this.photographe = photographe;
+		this.indice = indice;
+		imageToDisplay = new MyImage("file:\\"+photographe.getPhotoList().get(indice).getPath().getValue());
 	}
 
 	public Main getMain() {

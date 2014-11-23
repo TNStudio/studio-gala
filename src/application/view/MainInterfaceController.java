@@ -13,6 +13,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import application.Main;
 import application.model.MyImage;
 import application.model.Photographe;
@@ -38,6 +39,7 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 
 	private Main main;
 	private GridPane photoGridPane;
+	Photographe selectedPhotograph;
 
 	
 
@@ -95,7 +97,7 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 	@Override
 	public void update() { //re-build the view
 		System.out.println("in update");
-		Photographe selectedPhotograph = listPhotographe.getSelectionModel().getSelectedItem();
+		selectedPhotograph = listPhotographe.getSelectionModel().getSelectedItem();
 		try {
 			System.out.println( listPhotographe.getSelectionModel().getSelectedItem().getName().getValue());
 		} catch (NullPointerException e) {
@@ -155,10 +157,18 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 
 	@Override
 	public void handle(MouseEvent arg0) {
+		int indice = 0;
 		ImageView toDisplay = (ImageView) arg0.getSource();
 		MyImage imgToDiplay = (MyImage) toDisplay.getImage();
 		System.out.println(imgToDiplay.getURL());
-		main.getImageInterfaceController().setImageToDisplay(imgToDiplay);
+		for(int i=0;i<selectedPhotograph.getPhotoList().size();i++){
+			System.out.println("file:\\"+selectedPhotograph.getPhotoList().get(i).getPath().getValue());
+			if(imgToDiplay.getURL().equals("file:\\"+selectedPhotograph.getPhotoList().get(i).getPath().getValue())){
+				indice = i;
+				break;
+			}
+		}
+		main.getImageInterfaceController().setImageToDisplay(selectedPhotograph, indice);
 		main.getImageInterfaceController().update();
 		main.loadInterface(main.getLoaderImage(), main.getImageInterfaceController(), main.getSceneImage());
 	}
