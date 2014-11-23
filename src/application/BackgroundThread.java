@@ -7,7 +7,7 @@ public class BackgroundThread implements Runnable{
 	Task<?> task;
 	
 	public BackgroundThread(Task<?> task) {
-		thread = new Thread(this);
+		thread = new Thread(task);
 		this.task = task;
 	}
 
@@ -16,4 +16,7 @@ public class BackgroundThread implements Runnable{
 		task.run();		
 	}
 
+	public void start() {
+		thread.start();
+	}
 }
