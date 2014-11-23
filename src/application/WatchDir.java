@@ -48,6 +48,7 @@ public class WatchDir {
     private final Map<WatchKey,Path> keys;
     private final boolean recursive;
     private boolean trace = false;
+    private ThumbnailGenerator thumbGen;
 
     @SuppressWarnings("unchecked")
     static <T> WatchEvent<T> cast(WatchEvent<?> event) {
@@ -96,6 +97,7 @@ public class WatchDir {
         this.watcher = FileSystems.getDefault().newWatchService();
         this.keys = new HashMap<WatchKey,Path>();
         this.recursive = recursive;
+        this.thumbGen = new ThumbnailGenerator();
 
         if (recursive) {
             System.out.format("Scanning %s ...\n", dir);
@@ -114,6 +116,7 @@ public class WatchDir {
      */
     public void processEvents() {
         for (;;) {
+        	System.out.println("dans la boucle");
 
             // wait for key to be signalled
             WatchKey key;
@@ -144,6 +147,7 @@ public class WatchDir {
 
                 // print out event
                 System.out.format("%s: %s\n", event.kind().name(), child);
+               // thumbGen.transform(originalFile, thumbnailFile, thumbWidth, thumbHeight, quality);
 
                 // if directory is created, and watching recursively, then
                 // register it and its sub-directories

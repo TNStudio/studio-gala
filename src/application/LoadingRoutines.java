@@ -20,10 +20,12 @@ public class LoadingRoutines {
 	private ObservableList<Photographe> photographeList;
 	private WatchDir watchDir;
 	private Task<Void> backgroundFolderScan;
+	private ThumbnailGenerator thumbGen;
+	private BackgroundThread bgThread;
 	
 	
 	public LoadingRoutines() {
-		
+		thumbGen = new ThumbnailGenerator();
 	}
 
 	public ObservableList<Photographe> loadImagesRoutine(String directory) throws Exception {		
@@ -49,6 +51,7 @@ public class LoadingRoutines {
 					if(f.getName().matches("^(.*?)")){
 						photo = new SimpleStringProperty();
 						photo.setValue(f.getAbsolutePath());
+//						thumbGen.transform(f.getAbsolutePath(), , thumbWidth, thumbHeight, quality);
 						photoList.add(new Photo(photo));
 						System.out.println(photoList.get(photoList.size()-1));
 					}
@@ -56,7 +59,7 @@ public class LoadingRoutines {
 				photographeList.get(photographeList.size()-1).setPhotoList(photoList);
 			}
 		}
-//		startWatchDir(directory);
+		startWatchDir(directory);
 		return photographeList;   
 	}
 	
@@ -75,6 +78,7 @@ public class LoadingRoutines {
 				return null;
 			}
 		};
-		new Thread(backgroundFolderScan).start();		
+		bgThread = new BackgroundThread(backgroundFolderScan);
+		bgThread.run();		
 	}
 }
