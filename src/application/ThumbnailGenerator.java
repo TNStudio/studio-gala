@@ -39,9 +39,9 @@ public class ThumbnailGenerator
  {
  }
  
- public void transform(String originalFile, String thumbnailFile, int thumbWidth, int thumbHeight, int quality) throws Exception 
- {
-   Image image = new Image(originalFile, thumbWidth, thumbHeight, true, true, true);
+ public void transform(String originalFile, String thumbnailFile, int thumbWidth, int thumbHeight) throws Exception {
+	 System.out.println("Je génère fougère !\nfile:\\"+originalFile);
+	 Image image = new Image("file:\\"+originalFile, thumbWidth, thumbHeight, true, true, false);
      
 //     double thumbRatio = (double)thumbWidth / (double)thumbHeight;
 //     int imageWidth    = (int) image.getWidth();
@@ -77,9 +77,12 @@ public class ThumbnailGenerator
      File outFileImage = new File(thumbnailFile);
 
      try {
-         ImageIO.write(SwingFXUtils.fromFXImage(image, null), ".png", outFileImage);
+    	 System.out.println("J'écris le fichier gros : "+outFileImage.getAbsolutePath());
+         ImageIO.write(SwingFXUtils.fromFXImage(image, null), ".jpg", outFileImage);
+         System.out.println("OK");
      } catch (Exception e) {
          System.err.println("Erreur de génération de la miniature "+originalFile);
+         e.printStackTrace();
      }
  }
 }

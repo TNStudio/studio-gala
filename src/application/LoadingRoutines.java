@@ -51,7 +51,7 @@ public class LoadingRoutines {
 					if(f.getName().matches("^(.*?)")){
 						photo = new SimpleStringProperty();
 						photo.setValue(f.getAbsolutePath());
-//						thumbGen.transform(f.getAbsolutePath(), , thumbWidth, thumbHeight, quality);
+						thumbGen.transform(f.getAbsolutePath(), f.getAbsolutePath()+".thumb.jpg", 150, 150);
 						photoList.add(new Photo(photo));
 						System.out.println(photoList.get(photoList.size()-1));
 					}
