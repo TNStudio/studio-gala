@@ -3,6 +3,8 @@ package application.view;
 import application.Main;
 import application.model.Photo;
 import application.model.PrintRequest;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -14,7 +16,7 @@ public class PrintQueueInterfaceController implements MyObserver {
 	@FXML
 	private TableView<PrintRequest> printQueueTable;
 	@FXML
-	private TableColumn<PrintRequest, Integer> number;
+	private TableColumn<PrintRequest, Number> number;
 	@FXML
 	private TableColumn<PrintRequest, String> path;
 	@FXML
@@ -32,7 +34,7 @@ public class PrintQueueInterfaceController implements MyObserver {
 	private void initialize() {
 		// Initialize the person table with the two columns.
 		
-		//number.setCellValueFactory(cellData -> cellData.getValue().getNumber());
+		number.setCellValueFactory(cellData -> cellData.getValue().getNumber());
 		path.setCellValueFactory(cellData -> cellData.getValue().getPath());
 		check.setCellValueFactory(cellData -> cellData.getValue().getWorkDone());
 	}

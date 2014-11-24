@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -23,6 +24,9 @@
                <center>
                   <Button fx:id="next" mnemonicParsing="false" onAction="#nextImage" text="Suivante" BorderPane.alignment="CENTER" />
                </center>
+               <padding>
+                  <Insets bottom="100.0" />
+               </padding>
             </BorderPane>
          </right>
          <left>
