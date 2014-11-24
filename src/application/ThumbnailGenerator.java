@@ -1,6 +1,9 @@
 package application;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 
@@ -43,15 +46,14 @@ public class ThumbnailGenerator
 	 System.out.println("Je génère fougère !\nfile:\\"+originalFile);
 	 Image image = new Image("file:\\"+originalFile, thumbWidth, thumbHeight, true, true, false);
      System.out.println(image.getHeight()+"   "+image.getWidth());
-     Image testi = new Image("file:\\D:\\Utilisateur\\Dropbox\\Gala2014\\1\\IMG_5523.jpg", 150, 150, true, true, false);
+     
+     BufferedImage testitemp = SwingFXUtils.fromFXImage(image, null);
      
      File outFileImage = new File(thumbnailFile);
-     File test = new File("D:\\Utilisateur\\Dropbox\\Gala2014\\1\\test.jpg");
 
      try {
     	 System.out.println("J'écris le fichier gros : "+outFileImage.getAbsolutePath());
-         ImageIO.write(SwingFXUtils.fromFXImage(image, null), ".jpg", outFileImage);
-         ImageIO.write(SwingFXUtils.fromFXImage(testi, null), ".jpg", test);
+         ImageIO.write(testitemp, ".jpg", outFileImage);
          System.out.println("OK");
      } catch (Exception e) {
          System.err.println("Erreur de génération de la miniature "+originalFile);
