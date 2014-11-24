@@ -2,6 +2,7 @@ package application;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -44,10 +45,12 @@ public class ThumbnailGenerator
  
  public void transform(String originalFile, String thumbnailFile, int thumbWidth, int thumbHeight) throws Exception {
 	 System.out.println("Je génère fougère !\nfile:\\"+originalFile);
-	 Image image = new Image("file:\\"+originalFile, thumbWidth, thumbHeight, true, true, false);
+//	 Image image = new Image("file:\\"+originalFile, thumbWidth, thumbHeight, true, true, false);
+	 Image image = new Image("file:\\"+originalFile);
      System.out.println(image.getHeight()+"   "+image.getWidth());
      
-     BufferedImage testitemp = SwingFXUtils.fromFXImage(image, null);
+     BufferedImage testitemp = ImageIO.read(new URL("file:\\"+originalFile));
+     //SwingFXUtils.fromFXImage(image, testitemp);
      
      File outFileImage = new File(thumbnailFile);
 
