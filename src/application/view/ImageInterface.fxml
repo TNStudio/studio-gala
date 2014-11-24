@@ -18,7 +18,7 @@
                   <Button fx:id="quit" mnemonicParsing="false" text="Retour" BorderPane.alignment="CENTER" />
                </top>
                <bottom>
-                  <Button fx:id="print" mnemonicParsing="false" text="Imprimer !" BorderPane.alignment="CENTER" />
+                  <Button fx:id="print" mnemonicParsing="false" onAction="#printAction" text="Imprimer !" BorderPane.alignment="CENTER" />
                </bottom>
                <center>
                   <Button fx:id="next" mnemonicParsing="false" onAction="#nextImage" text="Suivante" BorderPane.alignment="CENTER" />

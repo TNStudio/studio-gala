@@ -1,39 +1,51 @@
 package application.model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class PrintRequest {
 	
-	private int number;
-	private String path;
-	private boolean workDone = false;
+	private IntegerProperty number;
+	private StringProperty path;
+	private BooleanProperty workDone;
 	
 	public PrintRequest(int number, String path){
-		this.number = number;
-		this.path=path;
+		this.number = new SimpleIntegerProperty();
+		this.path = new SimpleStringProperty();
+		this.workDone = new SimpleBooleanProperty();
+		this.number.set(number);
+		this.path.setValue(path);
+		this.workDone.setValue(false);
 	}
 
-	public int getNumber() {
+	public IntegerProperty getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(IntegerProperty number) {
 		this.number = number;
 	}
 
-	public String getPath() {
+	public StringProperty getPath() {
 		return path;
 	}
 
-	public void setPath(String path) {
+	public void setPath(StringProperty path) {
 		this.path = path;
 	}
 
-	public boolean isWorkDone() {
+	public BooleanProperty getWorkDone() {
 		return workDone;
 	}
 
-	public void setWorkDone(boolean workDone) {
+	public void setWorkDone(BooleanProperty workDone) {
 		this.workDone = workDone;
 	}
+
 	
 	
 

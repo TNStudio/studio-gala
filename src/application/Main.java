@@ -3,11 +3,13 @@ package application;
 
 import observerPattern.MyObserver;
 import application.model.Photographe;
+import application.model.PrintRequest;
 import application.view.ImageInterfaceController;
 import application.view.MainInterfaceController;
 import application.view.PrintQueueInterfaceController;
 import application.view.SettingsInterfaceController;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +31,7 @@ public class Main extends Application {
 	private int largeur_photo = 350;
 	private int nb_photo = 5;
 	private ObservableList<Photographe> photographeList;
+	private ObservableList<PrintRequest> printRequest;
 	private String folder ="D:\\Utilisateur\\Dropbox\\Gala2014";
 	private Stage primaryStage;
 	private Stage secondaryStage;
@@ -54,7 +57,8 @@ public class Main extends Application {
 	public Main(){
 //		System.setProperty("sun.java2d.opengl", "true");
 		setRoutine(new LoadingRoutines());
-				
+		printRequest = FXCollections.observableArrayList();
+		printRequest.add(new PrintRequest(0, "test"));
 //		photographeList = new ArrayList<Photographe>();
 //		for(int i=0; i<nb_photographe;i++){
 //			photographeList.add(new Photographe(i));
@@ -91,6 +95,9 @@ public class Main extends Application {
 			mainInterfaceController = loaderMain.getController();
 			imageInterfaceController = loaderImage.getController();
 			printInterfaceController = loaderPrinter.getController();
+			
+			printInterfaceController.setList(printRequest);
+			
 			settingsInterfaceController.setMain(this);
 			mainInterfaceController.setMain(this);
 			imageInterfaceController.setMain(this);
@@ -298,4 +305,14 @@ public class Main extends Application {
 	public void setRoutine(LoadingRoutines routine) {
 		this.routine = routine;
 	}
+
+	public ObservableList<PrintRequest> getPrintRequest() {
+		return printRequest;
+	}
+
+	public void setPrintRequest(ObservableList<PrintRequest> printRequest) {
+		this.printRequest = printRequest;
+	}
+	
+	
 }
