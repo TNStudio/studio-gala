@@ -63,9 +63,30 @@ public class ImageInterfaceController implements MyObserver{
 
 	@Override
 	public void update() {
-		imageView.setImage(imageToDisplay);
+		try {
+			imageView.setImage(imageToDisplay);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		imageView.setFitHeight(Screen.getPrimary().getBounds().getHeight());
 		
+	}
+	
+	public void nextImage(){
+		if(indice==photographe.getPhotoList().size()-1){
+			indice = 0;
+		} else {
+			indice++;
+		}
+	}
+	
+	public void previousImage(){
+		if(indice == 0){
+			indice = photographe.getPhotoList().size()-1;
+		} else {
+			indice--;
+		}
 	}
 	
 	
