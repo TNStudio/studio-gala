@@ -1,5 +1,6 @@
 package application.view;
 
+import application.Main;
 import application.model.Photo;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -13,6 +14,8 @@ public class PrintQueueInterfaceController implements MyObserver {
 	private TableColumn<Photo, String> firstNameColumn;
 	@FXML
 	private TableColumn<Photo, String> lastNameColumn;
+	
+	private Main main;
 	public PrintQueueInterfaceController() {
 
 	}
@@ -24,7 +27,7 @@ public class PrintQueueInterfaceController implements MyObserver {
 	@FXML
 	private void initialize() {
 		// Initialize the person table with the two columns.
-		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getPath());
+		//firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getPath());
 //		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
 	}
 
@@ -33,5 +36,15 @@ public class PrintQueueInterfaceController implements MyObserver {
 		// TODO Auto-generated method stub
 
 	}
+
+	public Main getMain() {
+		return main;
+	}
+
+	public void setMain(Main main) {
+		this.main = main;
+	}
+	
+	
 
 }
