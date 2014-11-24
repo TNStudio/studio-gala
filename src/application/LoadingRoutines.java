@@ -49,9 +49,11 @@ public class LoadingRoutines {
 				photoList = FXCollections.observableArrayList();
 				for(File f : files) {
 					if(f.getName().matches("^(.*?)")){
+						if (!f.getAbsolutePath().contains("thumb")) {
+							thumbGen.transform(f.getAbsolutePath(), f.getAbsolutePath()+".thumb", 1920, 1920);
+						}
 						photo = new SimpleStringProperty();
 						photo.setValue(f.getAbsolutePath());
-						thumbGen.transform(f.getAbsolutePath(), f.getAbsolutePath()+".thumb.jpg", 150, 150);
 						photoList.add(new Photo(photo));
 						System.out.println(photoList.get(photoList.size()-1));
 					}

@@ -44,20 +44,18 @@ public class ThumbnailGenerator
  }
  
  public void transform(String originalFile, String thumbnailFile, int thumbWidth, int thumbHeight) throws Exception {
-	 System.out.println("Je génère fougère !\nfile:\\"+originalFile);
-//	 Image image = new Image("file:\\"+originalFile, thumbWidth, thumbHeight, true, true, false);
-	 Image image = new Image("file:\\"+originalFile);
-     System.out.println(image.getHeight()+"   "+image.getWidth());
+	//Create the output file
+     File outFileImage = new File(thumbnailFile+".png");
+     if(outFileImage.exists()) {
+    	 return;
+     }
+	 
+	 //Load the image in required dimensions
+	 Image image = new Image("file:\\"+originalFile, thumbWidth, thumbHeight, true, true, false);
      
-     BufferedImage testitemp = ImageIO.read(new URL("file:\\"+originalFile));
-     //SwingFXUtils.fromFXImage(image, testitemp);
-     
-     File outFileImage = new File(thumbnailFile);
-
+     //Write the thumb down
      try {
-    	 System.out.println("J'écris le fichier gros : "+outFileImage.getAbsolutePath());
-         ImageIO.write(testitemp, ".jpg", outFileImage);
-         System.out.println("OK");
+         ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", outFileImage);
      } catch (Exception e) {
          System.err.println("Erreur de génération de la miniature "+originalFile);
          e.printStackTrace();

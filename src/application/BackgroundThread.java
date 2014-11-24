@@ -8,6 +8,7 @@ public class BackgroundThread implements Runnable{
 	
 	public BackgroundThread(Task<?> task) {
 		thread = new Thread(task);
+		thread.setDaemon(true);
 		this.task = task;
 	}
 
