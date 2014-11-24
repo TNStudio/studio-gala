@@ -19,6 +19,10 @@ public class ImageInterfaceController implements MyObserver{
 	
 	@FXML
 	private Button quit;
+	@FXML
+	private Button previous;
+	@FXML
+	private Button next;
 	
 	@FXML
 	private ImageView imageView;
@@ -79,6 +83,13 @@ public class ImageInterfaceController implements MyObserver{
 		} else {
 			indice++;
 		}
+		try {
+			imageToDisplay = new MyImage("file:\\"+photographe.getPhotoList().get(indice).getPath().getValue());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
 	}
 	
 	public void previousImage(){
@@ -87,6 +98,13 @@ public class ImageInterfaceController implements MyObserver{
 		} else {
 			indice--;
 		}
+		try {
+			imageToDisplay = new MyImage("file:\\"+photographe.getPhotoList().get(indice).getPath().getValue());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
 	}
 	
 	
