@@ -4,6 +4,7 @@ import observerPattern.MyObserver;
 import application.Main;
 import application.model.MyImage;
 import application.model.Photographe;
+import application.model.PrintRequest;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,6 +20,10 @@ public class ImageInterfaceController implements MyObserver{
 	
 	@FXML
 	private Button quit;
+	@FXML
+	private Button previous;
+	@FXML
+	private Button next;
 	
 	@FXML
 	private ImageView imageView;
@@ -79,6 +84,13 @@ public class ImageInterfaceController implements MyObserver{
 		} else {
 			indice++;
 		}
+		try {
+			imageToDisplay = new MyImage("file:\\"+photographe.getPhotoList().get(indice).getPath().getValue());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
 	}
 	
 	public void previousImage(){
@@ -87,8 +99,17 @@ public class ImageInterfaceController implements MyObserver{
 		} else {
 			indice--;
 		}
+		try {
+			imageToDisplay = new MyImage("file:\\"+photographe.getPhotoList().get(indice).getPath().getValue());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update();
 	}
 	
-	
+	public void printAction(){
+		main.getPrintRequest().add(new PrintRequest(main.getPrintRequest().size(), photographe.getPhotoList().get(indice).getPath().getValue()));
+	}
 	
 }
