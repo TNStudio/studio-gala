@@ -42,43 +42,16 @@ public class ThumbnailGenerator
  public void transform(String originalFile, String thumbnailFile, int thumbWidth, int thumbHeight) throws Exception {
 	 System.out.println("Je génère fougère !\nfile:\\"+originalFile);
 	 Image image = new Image("file:\\"+originalFile, thumbWidth, thumbHeight, true, true, false);
-     
-//     double thumbRatio = (double)thumbWidth / (double)thumbHeight;
-//     int imageWidth    = (int) image.getWidth();
-//     int imageHeight   = (int) image.getHeight();
-//     double imageRatio = (double)imageWidth / (double)imageHeight;
-//     if (thumbRatio < imageRatio) 
-//     {
-//       thumbHeight = (int)(thumbWidth / imageRatio);
-//     } 
-//     else 
-//     {
-//         thumbWidth = (int)(thumbHeight * imageRatio);
-//     }
-//     
-//   if(imageWidth < thumbWidth && imageHeight < thumbHeight)
-//   {
-//     thumbWidth = imageWidth;
-//     thumbHeight = imageHeight;
-//   }
-//   else if(imageWidth < thumbWidth)
-//     thumbWidth = imageWidth;
-//   else if(imageHeight < thumbHeight)
-//     thumbHeight = imageHeight;
-
-//     WritableImage thumbImage = new WritableImage(thumbWidth, thumbHeight);
-//     GraphicsContext graphics2D = thumbImage.createGraphics();
-//     graphics2D.setBackground(Color.WHITE);
-//     graphics2D.setPaint(Color.WHITE); 
-//     graphics2D.fillRect(0, 0, thumbWidth, thumbHeight);
-//     graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-//     graphics2D.drawImage(image, 0, 0, thumbWidth, thumbHeight, null);
+     System.out.println(image.getHeight()+"   "+image.getWidth());
+     Image testi = new Image("file:\\D:\\Utilisateur\\Dropbox\\Gala2014\\1\\IMG_5523.jpg", 150, 150, true, true, false);
      
      File outFileImage = new File(thumbnailFile);
+     File test = new File("D:\\Utilisateur\\Dropbox\\Gala2014\\1\\test.jpg");
 
      try {
     	 System.out.println("J'écris le fichier gros : "+outFileImage.getAbsolutePath());
          ImageIO.write(SwingFXUtils.fromFXImage(image, null), ".jpg", outFileImage);
+         ImageIO.write(SwingFXUtils.fromFXImage(testi, null), ".jpg", test);
          System.out.println("OK");
      } catch (Exception e) {
          System.err.println("Erreur de génération de la miniature "+originalFile);
