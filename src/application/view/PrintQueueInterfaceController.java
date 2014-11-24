@@ -1,15 +1,11 @@
 package application.view;
 
 import application.Main;
-import application.model.Photo;
 import application.model.PrintRequest;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import observerPattern.MyObserver;
 
 public class PrintQueueInterfaceController implements MyObserver {
