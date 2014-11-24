@@ -280,8 +280,8 @@ public class Main extends Application {
 		
 		primaryStage.setScene(scene); //put the scene in a stage (window)
 		primaryStage.setTitle("GALA printer Service by TN Studio"); //give a name to the window
-		primaryStage.setFullScreen(true); //set the window in fullscreen mode
-		primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+//		primaryStage.setFullScreen(true); //set the window in fullscreen mode
+//		primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 		primaryStage.toFront();
 		obs.update();
 	}
