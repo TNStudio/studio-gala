@@ -20,8 +20,14 @@
                <bottom>
                   <Button fx:id="print" mnemonicParsing="false" text="Imprimer !" BorderPane.alignment="CENTER" />
                </bottom>
+               <center>
+                  <Button fx:id="next" mnemonicParsing="false" onAction="#nextImage" text="Suivante" BorderPane.alignment="CENTER" />
+               </center>
             </BorderPane>
          </right>
+         <left>
+            <Button fx:id="previous" mnemonicParsing="false" onAction="#previousImage" text="Précédente" BorderPane.alignment="CENTER" />
+         </left>
       </BorderPane>
    </children>
 </AnchorPane>
