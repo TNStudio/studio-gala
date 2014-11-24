@@ -4,8 +4,10 @@ import observerPattern.MyObserver;
 import application.Main;
 import application.model.MyImage;
 import application.model.Photographe;
+import application.model.PrintRequest;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -107,6 +109,8 @@ public class ImageInterfaceController implements MyObserver{
 		update();
 	}
 	
-	
+	public void printAction(){
+		main.getPrintRequest().add(new PrintRequest(main.getPrintRequest().size(), photographe.getPhotoList().get(indice).getPath().getValue()));
+	}
 	
 }

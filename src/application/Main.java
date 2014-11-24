@@ -3,14 +3,21 @@ package application;
 
 import observerPattern.MyObserver;
 import application.model.Photographe;
+import application.model.PrintRequest;
 import application.view.ImageInterfaceController;
 import application.view.MainInterfaceController;
+import application.view.PrintQueueInterfaceController;
 import application.view.SettingsInterfaceController;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
@@ -27,27 +34,34 @@ public class Main extends Application {
 	private int largeur_photo = 350;
 	private int nb_photo = 5;
 	private ObservableList<Photographe> photographeList;
+	private ObservableList<PrintRequest> printRequest;
 	private String folder ="D:\\Utilisateur\\Dropbox\\Gala2014";
 	private Stage primaryStage;
+	private Stage secondaryStage;
 	private LoadingRoutines routine;
 	
 	private FXMLLoader loaderMain;
 	private FXMLLoader loaderSettings;
 	private FXMLLoader loaderImage;
+	private FXMLLoader loaderPrinter;
 	private SettingsInterfaceController settingsInterfaceController;
 	private MainInterfaceController mainInterfaceController;
 	private ImageInterfaceController imageInterfaceController;
+	private PrintQueueInterfaceController printInterfaceController;
 	private AnchorPane rootMain;
 	private AnchorPane rootSettings;
 	private AnchorPane rootImage;
+	private AnchorPane rootPrint;
 	private Scene sceneMain;
 	private Scene sceneSettings;
 	private Scene sceneImage;
+	private Scene scenePrint;
 	
 	public Main(){
 //		System.setProperty("sun.java2d.opengl", "true");
 		setRoutine(new LoadingRoutines());
-				
+		printRequest = FXCollections.observableArrayList();
+		printRequest.add(new PrintRequest(0, "test"));
 //		photographeList = new ArrayList<Photographe>();
 //		for(int i=0; i<nb_photographe;i++){
 //			photographeList.add(new Photographe(i));
@@ -57,6 +71,12 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage=primaryStage;
+		this.primaryStage.initStyle(StageStyle.UNDECORATED);
+		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+		primaryStage.setX(primaryScreenBounds.getMinX());
+		primaryStage.setY(primaryScreenBounds.getMinY());
+		primaryStage.setWidth(primaryScreenBounds.getWidth());
+		primaryStage.setHeight(primaryScreenBounds.getHeight());
 		primaryStage.setOnHiding(new EventHandler<WindowEvent>() {
 			
 			@Override
@@ -65,27 +85,38 @@ public class Main extends Application {
 				
 			}
 		});
+		secondaryStage = new Stage();
 		try {
 			loaderMain = new FXMLLoader();
 			loaderSettings = new FXMLLoader();
 			loaderImage = new FXMLLoader();
+			loaderPrinter = new FXMLLoader();
 			loaderSettings.setLocation(Main.class.getResource("view/SettingsInterface.fxml")); //find the GUI file
 			loaderMain.setLocation(Main.class.getResource("view/MainInterface.fxml")); //find the GUI file
 			loaderImage.setLocation(Main.class.getResource("view/ImageInterface.fxml")); //find the GUI file
+			loaderPrinter.setLocation(Main.class.getResource("view/PrintQueueInterface.fxml"));
 			rootSettings = loaderSettings.load();
 			rootMain = loaderMain.load(); //load the GUI in a AnchorPane
 			rootImage = loaderImage.load();
+			rootPrint = loaderPrinter.load();
 			settingsInterfaceController = loaderSettings.getController();
 			mainInterfaceController = loaderMain.getController();
 			imageInterfaceController = loaderImage.getController();
+			printInterfaceController = loaderPrinter.getController();
+			
+			printInterfaceController.setList(printRequest);
+			
 			settingsInterfaceController.setMain(this);
 			mainInterfaceController.setMain(this);
 			imageInterfaceController.setMain(this);
+			printInterfaceController.setMain(this);
 			sceneMain = new Scene(rootMain); //create a scene with the GUI
 			sceneSettings = new Scene(rootSettings); //create a scene with the GUI
 			sceneImage = new Scene(rootImage);
+			scenePrint = new Scene(rootPrint);
 			this.loadInterface(loaderSettings, settingsInterfaceController, sceneSettings);
 			primaryStage.show(); //display the window
+			launchPrinterStage();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -254,11 +285,19 @@ public class Main extends Application {
 	}
 
 	public void loadInterface(FXMLLoader loader, MyObserver obs, Scene scene){
+		
 		primaryStage.setScene(scene); //put the scene in a stage (window)
 		primaryStage.setTitle("GALA printer Service by TN Studio"); //give a name to the window
-		primaryStage.setFullScreen(true); //set the window in fullscreen mode
-		primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+//		primaryStage.setFullScreen(true); //set the window in fullscreen mode
+//		primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+		primaryStage.toFront();
 		obs.update();
+	}
+	
+	public void launchPrinterStage(){
+		secondaryStage.setScene(scenePrint);
+		secondaryStage.setTitle("GALA printer Service by TN Studio"); //give a name to the window
+		secondaryStage.show();
 	}
 
 	/**
@@ -274,4 +313,14 @@ public class Main extends Application {
 	public void setRoutine(LoadingRoutines routine) {
 		this.routine = routine;
 	}
+
+	public ObservableList<PrintRequest> getPrintRequest() {
+		return printRequest;
+	}
+
+	public void setPrintRequest(ObservableList<PrintRequest> printRequest) {
+		this.printRequest = printRequest;
+	}
+	
+	
 }
