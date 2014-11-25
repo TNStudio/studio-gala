@@ -32,11 +32,16 @@ package application;
  */
 
 import java.nio.file.*;
+
 import static java.nio.file.StandardWatchEventKinds.*;
 import static java.nio.file.LinkOption.*;
+
 import java.nio.file.attribute.*;
 import java.io.*;
 import java.util.*;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * Example to watch a directory (or tree) for changes to files.
@@ -54,6 +59,7 @@ public class WatchDir {
     private final boolean recursive;
     private boolean trace = false;
     private ThumbnailGenerator thumbGen;
+    private StringProperty thumb;
 
     @SuppressWarnings("unchecked")
     static <T> WatchEvent<T> cast(WatchEvent<?> event) {
@@ -98,11 +104,12 @@ public class WatchDir {
     /**
      * Creates a WatchService and registers the given directory
      */
-    public WatchDir(Path dir, boolean recursive) throws IOException {
+    public WatchDir(Path dir, boolean recursive, Object action) throws IOException {
         this.watcher = FileSystems.getDefault().newWatchService();
         this.keys = new HashMap<WatchKey,Path>();
         this.recursive = recursive;
-        this.thumbGen = new ThumbnailGenerator();
+        this.thumbGen = new ThumbnailGenerator(350);
+//      this.thumbGen = (ThumbnailGenerator) action;
 
         if (recursive) {
             System.out.format("Scanning %s ...\n", dir);
@@ -139,6 +146,7 @@ public class WatchDir {
 
             for (WatchEvent<?> event: key.pollEvents()) {
                 WatchEvent.Kind kind = event.kind();
+                thumb = new SimpleStringProperty();
 
                 // TBD - provide example of how OVERFLOW event is handled
                 if (kind == OVERFLOW) {
@@ -152,10 +160,19 @@ public class WatchDir {
 
                 // print out event
                 System.out.format("%s: %s\n", event.kind().name(), child);
-               // thumbGen.transform(originalFile, thumbnailFile, thumbWidth, thumbHeight, quality);
 
-                // if directory is created, and watching recursively, then
-                // register it and its sub-directories
+                //Action on event
+                if(!child.toString().contains("thumb") && child.toFile().isFile() && kind == ENTRY_CREATE){
+                    try {
+                    	System.out.println(child.toString());
+						thumb = thumbGen.transform(child.toString(), child.getParent().toString()+"\\thumbs\\"+child.getFileName().toString()+".thumb");
+					} catch (Exception e) {
+						System.out.println("Unable to generate thumbnail during dynaic scan for "+child.toString());
+						e.printStackTrace();
+					}
+                }
+                
+                // if directory is created, and watching recursively, then register it and its sub-directories
                 if (recursive && (kind == ENTRY_CREATE)) {
                     try {
                         if (Files.isDirectory(child, NOFOLLOW_LINKS)) {

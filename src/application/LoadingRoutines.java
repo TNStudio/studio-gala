@@ -26,13 +26,10 @@ public class LoadingRoutines {
 	private WatchDir watchDir;
 	private Task<Void> backgroundFolderScan;
 	private ThumbnailGenerator thumbGen;
-	private BackgroundThread bgThread;
-	private int thumbWidth;
-	
+	private BackgroundThread bgThread;	
 	
 	public LoadingRoutines(int thumbWeight) {
-		thumbGen = new ThumbnailGenerator();
-		this.thumbWidth = thumbWeight;
+		thumbGen = new ThumbnailGenerator(thumbWeight);
 	}
 
 	public ObservableList<Photographe> loadImagesRoutine(String directory) throws Exception {		
@@ -68,7 +65,7 @@ public class LoadingRoutines {
 							photo.setValue(f.getAbsolutePath());
 							
 							//Generate thumb
-							thumb = thumbGen.transform(f.getAbsolutePath(), subdir+"\\thumbs\\"+f.getName()+".thumb", thumbWidth);
+							thumb = thumbGen.transform(f.getAbsolutePath(), subdir+"\\thumbs\\"+f.getName()+".thumb");
 							
 							//Add photo in list of photo
 							photoList.add(new Photo(photo, thumb));
@@ -86,7 +83,7 @@ public class LoadingRoutines {
 	
 	public void startWatchDir(String dir) {
 		try {
-			watchDir = new WatchDir(Paths.get(dir), true);
+			watchDir = new WatchDir(Paths.get(dir), true, thumbGen);
 		} catch (IOException e) {
 			System.err.println("Dossier Introuvable !\n" + dir);
 			e.printStackTrace();
