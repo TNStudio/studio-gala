@@ -50,6 +50,7 @@ public class ThumbnailGenerator
 
 		//Create the output file
 		File outFileImage = new File(path.getValue());
+		outFileImage.getParentFile().mkdirs();
 		
 		//If thumb exist return path
 		if(outFileImage.exists()) {
