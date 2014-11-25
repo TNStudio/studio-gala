@@ -163,7 +163,7 @@ public class WatchDir {
                 //Action on event
                 if(!child.toString().contains("thumb") && child.toFile().isFile() && kind == ENTRY_CREATE){
                     try {
-                    	System.out.println(child.toString());
+                    	Thread.sleep(100); //If the loop is too fast it can catch an empty preallocated file when one is copy-pasted
 						thumb = thumbGen.transform(child.toString(), child.getParent().toString()+"\\thumbs\\"+child.getFileName().toString()+".thumb");
 					} catch (Exception e) {
 						System.out.println("Unable to generate thumbnail during dynaic scan for "+child.toString());
