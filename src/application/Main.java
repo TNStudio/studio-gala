@@ -69,6 +69,8 @@ public class Main extends Application {
 	private Scene sceneImage;
 	private Scene scenePrint;
 	
+	Actionner actionCenter; //the action center
+	
 /**
  * Start methods
  */
@@ -156,6 +158,7 @@ public class Main extends Application {
 			imageInterfaceController.setMain(this);
 			printInterfaceController.setMain(this);
 			
+			actionCenter = new Actionner(this);
 			/**
 			 * Create the scenes
 			 */
@@ -367,4 +370,13 @@ public class Main extends Application {
 			PrintQueueInterfaceController printInterfaceController) {
 		this.printInterfaceController = printInterfaceController;
 	}
+	
+	public Actionner getActionCenter() {
+		return actionCenter;
+	}
+	
+	public void setActionCenter(Actionner actionCenter) {
+		this.actionCenter = actionCenter;
+	}
+	
 }

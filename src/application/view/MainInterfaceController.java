@@ -13,6 +13,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import application.Actionner;
 import application.Main;
 import application.model.MyImage;
 import application.model.Photographe;
@@ -50,7 +51,7 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 			@Override
 			public void handle(MouseEvent event) {
 
-				main.loadInterface(main.getSettingsInterfaceController(), main.getSceneSettings());
+				main.getActionCenter().doIt(Actionner.SETTINGS);
 			}
 		});
 
@@ -59,7 +60,7 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 
 			@Override
 			public void handle(MouseEvent event) {
-				update();
+				main.getActionCenter().doIt(Actionner.REFRESH);
 			}
 		});
 		
@@ -67,8 +68,7 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 
 			@Override
 			public void handle(MouseEvent arg0) {
-				//ListView<Photographe> list = (ListView<Photographe>) arg0.getSource();
-				update();
+				main.getActionCenter().doIt(Actionner.REFRESH);
 			}
 		});
 	}
