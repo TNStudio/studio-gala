@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.embed.swing.SwingFXUtils;
@@ -17,19 +18,13 @@ import javafx.scene.image.Image;
 
 public class ThumbnailGenerator {
 	private int thumbWidth;
-
-	public ThumbnailGenerator() {
-	}
+	private Image image;
 	
 	public ThumbnailGenerator(int thumbWidth) {
 		this.thumbWidth = thumbWidth;
 	}
 	
 	public StringProperty transform(String originalFile, String thumbnailFile) throws Exception {
-		return this.transform(originalFile, thumbnailFile, thumbWidth);
-	}
-
-	public StringProperty transform(String originalFile, String thumbnailFile, int thumbWidth) throws Exception {
 		//Path of the thumb
 		StringProperty path = new SimpleStringProperty(thumbnailFile+".png");
 
@@ -45,7 +40,8 @@ public class ThumbnailGenerator {
 
 		//Load the image in required dimensions
 		String temp = "file:\\"+originalFile;
-		Image image = new Image(temp, thumbWidth, thumbWidth, true, true, false);
+		image = new Image(temp, thumbWidth, thumbWidth, true, true, false);
+		System.out.println(image.widthProperty().toString());
 		System.out.println(image.getHeight());
 
 		//Write the thumb down

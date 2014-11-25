@@ -108,8 +108,7 @@ public class WatchDir {
         this.watcher = FileSystems.getDefault().newWatchService();
         this.keys = new HashMap<WatchKey,Path>();
         this.recursive = recursive;
-        this.thumbGen = new ThumbnailGenerator(350);
-//      this.thumbGen = (ThumbnailGenerator) action;
+        this.thumbGen = (ThumbnailGenerator) action;
 
         if (recursive) {
             System.out.format("Scanning %s ...\n", dir);
