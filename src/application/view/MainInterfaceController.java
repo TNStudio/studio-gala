@@ -142,7 +142,7 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 		//System.out.println(imgToDiplay.getURL());
 		for(int i=0;i<selectedPhotograph.getPhotoList().size();i++){
 			//System.out.println("file:\\"+selectedPhotograph.getPhotoList().get(i).getPath().getValue());
-			if(imgToDiplay.getURL().contains(selectedPhotograph.getPhotoList().get(i).getPath().getValue())){
+			if(imgToDiplay.getURL().contains(selectedPhotograph.getPhotoList().get(i).getThumbPath().getValue())){
 				indice = i;
 				break;
 			}
@@ -151,7 +151,5 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 		main.getImageInterfaceController().update();
 		main.loadInterface(main.getImageInterfaceController(), main.getSceneImage());
 	}
-	
-	
 
 }

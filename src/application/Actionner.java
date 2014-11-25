@@ -26,7 +26,18 @@ public class Actionner {
 			break;
 
 		case VALIDATE_PRINT:
-			
+			int indice = -1;
+			for(int i=0;i<main.getPrintRequest().size();i++){
+				if(!main.getPrintRequest().get(i).getWorkDone().getValue()){
+					indice = i;
+					break;
+				}
+			}
+			try {
+				main.getPrintRequest().get(indice).getWorkDone().set(true);
+			} catch (Exception e) {
+				//do nothing
+			}
 			break;
 		}
 	}

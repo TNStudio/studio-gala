@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -166,6 +168,7 @@ public class Main extends Application {
 			sceneSettings = new Scene(rootSettings); //create a scene with the GUI
 			sceneImage = new Scene(rootImage);
 			scenePrint = new Scene(rootPrint);
+			
 			
 			/**
 			 * Load the start up GUI
