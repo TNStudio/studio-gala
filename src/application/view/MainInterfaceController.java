@@ -107,9 +107,9 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 		}
 		
 		for(int i = 0; i<main.getPhotographeList().size(); i++){
-			System.out.println("Photographe "+main.getPhotographeList().get(i).getNumero().getValue());
+			//System.out.println("Photographe "+main.getPhotographeList().get(i).getNumero().getValue());
 			for(int j=0; j<main.getPhotographeList().get(i).getPhotoList().size();j++){
-				System.out.println("photo "+main.getPhotographeList().get(i).getPhotoList().get(j).getThumbPath().getValue());
+				//System.out.println("photo "+main.getPhotographeList().get(i).getPhotoList().get(j).getThumbPath().getValue());
 			}
 		}
 
@@ -161,9 +161,9 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 		int indice = 0;
 		ImageView toDisplay = (ImageView) arg0.getSource();
 		MyImage imgToDiplay = (MyImage) toDisplay.getImage();
-		System.out.println(imgToDiplay.getURL());
+		//System.out.println(imgToDiplay.getURL());
 		for(int i=0;i<selectedPhotograph.getPhotoList().size();i++){
-			System.out.println("file:\\"+selectedPhotograph.getPhotoList().get(i).getPath().getValue());
+			//System.out.println("file:\\"+selectedPhotograph.getPhotoList().get(i).getPath().getValue());
 			if(imgToDiplay.getURL().contains(selectedPhotograph.getPhotoList().get(i).getPath().getValue())){
 				indice = i;
 				break;
