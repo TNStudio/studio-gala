@@ -37,7 +37,7 @@ public class Main extends Application {
 	private Stage primaryStage;
 	private Stage secondaryStage;
 	private LoadingRoutines routine;
-	
+
 	private FXMLLoader loaderMain;
 	private FXMLLoader loaderSettings;
 	private FXMLLoader loaderImage;
@@ -54,16 +54,11 @@ public class Main extends Application {
 	private Scene sceneSettings;
 	private Scene sceneImage;
 	private Scene scenePrint;
-	
+
 	public Main(){
-//		System.setProperty("sun.java2d.opengl", "true");
-		setRoutine(new LoadingRoutines());
+		setRoutine(new LoadingRoutines(largeur_photo));
 		printRequest = FXCollections.observableArrayList();
 		printRequest.add(new PrintRequest(0, "test"));
-//		photographeList = new ArrayList<Photographe>();
-//		for(int i=0; i<nb_photographe;i++){
-//			photographeList.add(new Photographe(i));
-//		}
 	}
 
 	@Override
@@ -76,11 +71,11 @@ public class Main extends Application {
 		primaryStage.setWidth(primaryScreenBounds.getWidth());
 		primaryStage.setHeight(primaryScreenBounds.getHeight());
 		primaryStage.setOnHiding(new EventHandler<WindowEvent>() {
-			
+
 			@Override
 			public void handle(WindowEvent arg0) {
 				primaryStage.show();
-				
+
 			}
 		});
 		secondaryStage = new Stage();
@@ -101,9 +96,9 @@ public class Main extends Application {
 			mainInterfaceController = loaderMain.getController();
 			imageInterfaceController = loaderImage.getController();
 			printInterfaceController = loaderPrinter.getController();
-			
+
 			printInterfaceController.setList(printRequest);
-			
+
 			settingsInterfaceController.setMain(this);
 			mainInterfaceController.setMain(this);
 			imageInterfaceController.setMain(this);
@@ -165,7 +160,7 @@ public class Main extends Application {
 		this.primaryStage = primaryStage;
 	}
 
-	
+
 
 	public String getFolder() {
 		return folder;
@@ -174,10 +169,10 @@ public class Main extends Application {
 	public void setFolder(String folder) {
 		this.folder = folder;
 	}
-	
-	
-	
-	
+
+
+
+
 
 	public AnchorPane getRootMain() {
 		return rootMain;
@@ -228,8 +223,8 @@ public class Main extends Application {
 			MainInterfaceController mainInterfaceController) {
 		this.mainInterfaceController = mainInterfaceController;
 	}
-	
-	
+
+
 
 	public Scene getSceneMain() {
 		return sceneMain;
@@ -246,8 +241,8 @@ public class Main extends Application {
 	public void setSceneSettings(Scene sceneSettings) {
 		this.sceneSettings = sceneSettings;
 	}
-	
-	
+
+
 
 	public FXMLLoader getLoaderImage() {
 		return loaderImage;
@@ -283,15 +278,15 @@ public class Main extends Application {
 	}
 
 	public void loadInterface(FXMLLoader loader, MyObserver obs, Scene scene){
-		
+
 		primaryStage.setScene(scene); //put the scene in a stage (window)
 		primaryStage.setTitle("GALA printer Service by TN Studio"); //give a name to the window
-//		primaryStage.setFullScreen(true); //set the window in fullscreen mode
-//		primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+		//		primaryStage.setFullScreen(true); //set the window in fullscreen mode
+		//		primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 		primaryStage.toFront();
 		obs.update();
 	}
-	
+
 	public void launchPrinterStage(){
 		secondaryStage.setScene(scenePrint);
 		secondaryStage.setTitle("GALA printer Service by TN Studio"); //give a name to the window
@@ -319,6 +314,6 @@ public class Main extends Application {
 	public void setPrintRequest(ObservableList<PrintRequest> printRequest) {
 		this.printRequest = printRequest;
 	}
-	
-	
+
+
 }

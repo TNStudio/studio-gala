@@ -14,6 +14,11 @@ import javafx.concurrent.Task;
 import application.model.Photo;
 import application.model.Photographe;
 
+/**
+ * A class that load each photo in an array, call thumbnail generation and start the daemon
+ * @author Axel
+ *
+ */
 public class LoadingRoutines {
 
 	private ObservableList<Photo> photoList;
@@ -22,24 +27,28 @@ public class LoadingRoutines {
 	private Task<Void> backgroundFolderScan;
 	private ThumbnailGenerator thumbGen;
 	private BackgroundThread bgThread;
+	private int thumbWidth;
 	
 	
-	public LoadingRoutines() {
+	public LoadingRoutines(int thumbWeight) {
 		thumbGen = new ThumbnailGenerator();
+		this.thumbWidth = thumbWeight;
 	}
 
 	public ObservableList<Photographe> loadImagesRoutine(String directory) throws Exception {		
 		File[] files;
 		File dir = new File(directory);
-		System.out.println(dir.isDirectory());
 		File subdir;
 		String[] photographes = dir.list();
 		StringProperty photo = new SimpleStringProperty();
+		StringProperty thumb = new SimpleStringProperty();
 		IntegerProperty number = new SimpleIntegerProperty();
 		photographeList = FXCollections.observableArrayList();
 
+		//Browse each element in folder
 		for(String s : photographes) {
-			System.out.println(s);
+			
+			//If element is a folder
 			if(!s.contains(".")) {
 				number = new SimpleIntegerProperty();
 				number.setValue(Integer.parseInt(s));
@@ -47,15 +56,27 @@ public class LoadingRoutines {
 				subdir = new File(directory + "\\" + s);
 				files = subdir.listFiles();
 				photoList = FXCollections.observableArrayList();
+				
+				//Browse each file in folder
 				for(File f : files) {
 					if(f.getName().matches("^(.*?)")){
 						photo = new SimpleStringProperty();
-						photo.setValue(f.getAbsolutePath());
-//						thumbGen.transform(f.getAbsolutePath(), , thumbWidth, thumbHeight, quality);
-						photoList.add(new Photo(photo));
-						System.out.println(photoList.get(photoList.size()-1));
+						thumb = new SimpleStringProperty();
+						
+						//If file is not a thumb, create a thumb
+						if (!f.getAbsolutePath().contains("thumb")) {
+							photo.setValue(f.getAbsolutePath());
+							
+							//Generate thumb
+							thumb = thumbGen.transform(f.getAbsolutePath(), subdir+"\\thumbs\\"+f.getName()+".thumb", thumbWidth);
+							
+							//Add photo in list of photo
+							photoList.add(new Photo(photo, thumb));
+						}
 					}
 				}
+				
+				//Add the photo list in the photograph list
 				photographeList.get(photographeList.size()-1).setPhotoList(photoList);
 			}
 		}

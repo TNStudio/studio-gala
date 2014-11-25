@@ -42,6 +42,11 @@ import java.util.*;
  * Example to watch a directory (or tree) for changes to files.
  */
 
+/**
+ * Adaptation of a class that look into each directory for filesystem events like file creation or file deletion.
+ * @author Axel
+ *
+ */
 public class WatchDir {
 
     private final WatchService watcher;
@@ -174,27 +179,4 @@ public class WatchDir {
             }
         }
     }
-
-//    static void usage() {
-//        System.err.println("usage: java WatchDir [-r] dir");
-//        System.exit(-1);
-//    }
-
-//    public static void main(String[] args) throws IOException {
-//        // parse arguments
-//        if (args.length == 0 || args.length > 2)
-//            usage();
-//        boolean recursive = false;
-//        int dirArg = 0;
-//        if (args[0].equals("-r")) {
-//            if (args.length < 2)
-//                usage();
-//            recursive = true;
-//            dirArg++;
-//        }
-//
-//        // register directory and process its events
-//        Path dir = Paths.get(args[dirArg]);
-//        new WatchDir(dir, recursive).processEvents();
-//    }
 }
