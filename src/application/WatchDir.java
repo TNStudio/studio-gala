@@ -108,7 +108,8 @@ public class WatchDir {
         this.watcher = FileSystems.getDefault().newWatchService();
         this.keys = new HashMap<WatchKey,Path>();
         this.recursive = recursive;
-        this.thumbGen = (ThumbnailGenerator) action;
+        this.thumbGen = new ThumbnailGenerator(350);
+//      this.thumbGen = (ThumbnailGenerator) action;
 
         if (recursive) {
             System.out.format("Scanning %s ...\n", dir);
@@ -161,8 +162,9 @@ public class WatchDir {
                 System.out.format("%s: %s\n", event.kind().name(), child);
 
                 //Action on event
-                if(!child.toString().contains("thumb")){
+                if(!child.toString().contains("thumb") && child.toFile().isFile() && kind == ENTRY_CREATE){
                     try {
+                    	System.out.println(child.toString());
 						thumb = thumbGen.transform(child.toString(), child.getParent().toString()+"\\thumbs\\"+child.getFileName().toString()+".thumb");
 					} catch (Exception e) {
 						System.out.println("Unable to generate thumbnail during dynaic scan for "+child.toString());

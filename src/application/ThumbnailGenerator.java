@@ -9,30 +9,6 @@ import javafx.beans.property.StringProperty;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
-/*
- *
- * Part of the InfoGlue Content Management Platform (www.infoglue.org)
- *
- * 
- *
- *  Copyright (C)
- * 
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License version 2, as published by the
- * Free Software Foundation. See the file LICENSE.html for more information.
- * 
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY, including the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc. / 59 Temple
- * Place, Suite 330 / Boston, MA 02111-1307 / USA.
- *
- * 
- */
-
-
 /**
  * Adaptation of the thumbnail generation class
  * @author Axel
@@ -60,14 +36,17 @@ public class ThumbnailGenerator {
 		//Create the output file
 		File outFileImage = new File(path.getValue());
 		outFileImage.getParentFile().mkdirs();
-
+		System.out.println(outFileImage.toString());
+		
 		//If thumb exist return path
 		if(outFileImage.exists()) {
 			return path;
 		}
 
 		//Load the image in required dimensions
-		Image image = new Image("file:\\"+originalFile, thumbWidth, thumbWidth, true, true, false);
+		String temp = "file:\\"+originalFile;
+		Image image = new Image(temp, thumbWidth, thumbWidth, true, true, false);
+		System.out.println(image.getHeight());
 
 		//Write the thumb down
 		try {
