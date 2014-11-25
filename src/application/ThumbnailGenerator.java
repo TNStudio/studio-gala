@@ -1,6 +1,7 @@
 package application;
 
 import java.io.File;
+
 import javax.imageio.ImageIO;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -38,10 +39,18 @@ import javafx.scene.image.Image;
  *
  */
 
-public class ThumbnailGenerator 
-{
-	public ThumbnailGenerator()
-	{
+public class ThumbnailGenerator {
+	private int thumbWidth;
+
+	public ThumbnailGenerator() {
+	}
+	
+	public ThumbnailGenerator(int thumbWidth) {
+		this.thumbWidth = thumbWidth;
+	}
+	
+	public StringProperty transform(String originalFile, String thumbnailFile) throws Exception {
+		return this.transform(originalFile, thumbnailFile, thumbWidth);
 	}
 
 	public StringProperty transform(String originalFile, String thumbnailFile, int thumbWidth) throws Exception {
@@ -51,7 +60,7 @@ public class ThumbnailGenerator
 		//Create the output file
 		File outFileImage = new File(path.getValue());
 		outFileImage.getParentFile().mkdirs();
-		
+
 		//If thumb exist return path
 		if(outFileImage.exists()) {
 			return path;
@@ -63,7 +72,7 @@ public class ThumbnailGenerator
 		//Write the thumb down
 		try {
 			ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", outFileImage);
-			
+
 			//If success return the thumbnail path
 			return path;
 		} catch (Exception e) {
