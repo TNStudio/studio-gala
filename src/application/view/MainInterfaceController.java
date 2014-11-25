@@ -26,38 +26,31 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 
 	@FXML
 	private ScrollPane photoScroll;
-
 	@FXML
 	private ListView<Photographe> listPhotographe;
-
 	@FXML
 	private Button settings;
-
 	@FXML
 	private Button refresh;
 
-	private Main main;
-	private GridPane photoGridPane;
-	Photographe selectedPhotograph;
-
+	private Main main; //the model
+	private GridPane photoGridPane; //the layout
+	Photographe selectedPhotograph; //the selected photographer in the list
 	
-
-	//public static final ObservableList<String> names = FXCollections.observableArrayList();
-
 	@FXML
 	private void initialize(){
-
 		photoGridPane = new GridPane(); //create a grid pane to display the pictures
 		photoGridPane.setVgap(10); //create gaps to separate pictures
 		photoGridPane.setHgap(10); //idem
 		photoScroll.setContent(photoGridPane); //put the grid pane into the scrollpane (xml generated)
 
+		//Listeners
 		settings.setOnMouseClicked(new EventHandler<MouseEvent>() { //load another scene
 
 			@Override
 			public void handle(MouseEvent event) {
 
-				main.loadInterface(main.getLoaderSettings(), main.getSettingsInterfaceController(), main.getSceneSettings());
+				main.loadInterface(main.getSettingsInterfaceController(), main.getSceneSettings());
 			}
 		});
 
@@ -78,15 +71,10 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 				update();
 			}
 		});
-
-
 	}
 
 	public void setMain(Main main){
 		this.main=main;
-		
-
-
 	}
 	
 	public void updatePhotographerList(){
@@ -95,24 +83,14 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 
 	@Override
 	public void update() { //re-build the view
-		System.out.println("in update");
-		
-		//Update Photograph list
 		selectedPhotograph = listPhotographe.getSelectionModel().getSelectedItem();
 		try {
-			System.out.println( listPhotographe.getSelectionModel().getSelectedItem().getName().getValue());
+			System.out.println( listPhotographe.getSelectionModel().getSelectedItem().getName().getValue());//try to read the selected photographer
 		} catch (NullPointerException e) {
-			listPhotographe.getSelectionModel().select(0);
+			listPhotographe.getSelectionModel().select(0); //choose default if not
 			selectedPhotograph = listPhotographe.getSelectionModel().getSelectedItem();
 		}
-		
-		for(int i = 0; i<main.getPhotographeList().size(); i++){
-			System.out.println("Photographe "+main.getPhotographeList().get(i).getNumero().getValue());
-			for(int j=0; j<main.getPhotographeList().get(i).getPhotoList().size();j++){
-				System.out.println("photo "+main.getPhotographeList().get(i).getPhotoList().get(j).getThumbPath().getValue());
-			}
-		}
-
+		//clean the layout
 		photoGridPane.getChildren().clear();
 		
 		//Update photo grid
@@ -161,9 +139,9 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 		int indice = 0;
 		ImageView toDisplay = (ImageView) arg0.getSource();
 		MyImage imgToDiplay = (MyImage) toDisplay.getImage();
-		System.out.println(imgToDiplay.getURL());
+		//System.out.println(imgToDiplay.getURL());
 		for(int i=0;i<selectedPhotograph.getPhotoList().size();i++){
-			System.out.println("file:\\"+selectedPhotograph.getPhotoList().get(i).getPath().getValue());
+			//System.out.println("file:\\"+selectedPhotograph.getPhotoList().get(i).getPath().getValue());
 			if(imgToDiplay.getURL().contains(selectedPhotograph.getPhotoList().get(i).getPath().getValue())){
 				indice = i;
 				break;
@@ -171,7 +149,7 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 		}
 		main.getImageInterfaceController().setImageToDisplay(selectedPhotograph, indice);
 		main.getImageInterfaceController().update();
-		main.loadInterface(main.getLoaderImage(), main.getImageInterfaceController(), main.getSceneImage());
+		main.loadInterface(main.getImageInterfaceController(), main.getSceneImage());
 	}
 	
 	

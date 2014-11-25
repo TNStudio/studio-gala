@@ -17,37 +17,87 @@ public class ImageInterfaceController implements MyObserver{
 	
 	@FXML
 	private Button print;
-	
 	@FXML
 	private Button quit;
 	@FXML
 	private Button previous;
 	@FXML
 	private Button next;
-	
 	@FXML
 	private ImageView imageView;
 	
-	private Main main;
-	private Image imageToDisplay;
-	private Photographe photographe;
-	private int indice = 0;
+	private Main main; //the model
+	private Image imageToDisplay; //the image to diplay in full screen
+	private Photographe photographe; //the photographer of the image
+	private int indice = 0; //the number of the image in the photographer's list
 	
 	@FXML
 	private void initialize(){
-		//imageView.setImage(imageToDisplay);
-		
+		//initialize the listeners
 		quit.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent arg0) {
-				main.loadInterface(main.getLoaderMain(), main.getMainInterfaceController(), main.getSceneMain());
+				main.loadInterface(main.getMainInterfaceController(), main.getSceneMain()); //return to main screen
 				
 			}
 		});
 		
 	}
 	
+	@Override
+	public void update() { //what to do when update
+		try {
+			imageView.setImage(imageToDisplay); //diplay the new image
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		imageView.setFitHeight(Screen.getPrimary().getBounds().getHeight());//set its size
+		
+	}
+	//Listeners
+	/**
+	 * Diplay the next image in the list
+	 */
+	public void nextImage(){
+		if(indice==photographe.getPhotoList().size()-1){ //control limits
+			indice = 0;
+		} else {
+			indice++;
+		}
+		try {
+			imageToDisplay = new MyImage("file:\\"+photographe.getPhotoList().get(indice).getPath().getValue());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		update();
+	}
+	/**
+	 * Display the previous image in the list
+	 */
+	public void previousImage(){
+		if(indice == 0){ //control limits
+			indice = photographe.getPhotoList().size()-1;
+		} else {
+			indice--;
+		}
+		try {
+			imageToDisplay = new MyImage("file:\\"+photographe.getPhotoList().get(indice).getPath().getValue());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		update();
+	}
+	/**
+	 * Create a new print request
+	 */
+	public void printAction(){
+		main.getPrintRequest().add(new PrintRequest(main.getPrintRequest().size(), photographe.getPhotoList().get(indice).getPath().getValue()));
+		main.getPrintInterfaceController().getPrintQueueTable().scrollTo(main.getPrintInterfaceController().getList().size()-1); //autoscroll
+	}
+	//-----------------------------------------------------------------------------------------------------------------------------
+	
+	//Getters and Setters
 	public void setMain(Main main){
 		this.main=main;
 	}
@@ -64,52 +114,5 @@ public class ImageInterfaceController implements MyObserver{
 
 	public Main getMain() {
 		return main;
-	}
-
-	@Override
-	public void update() {
-		try {
-			imageView.setImage(imageToDisplay);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		imageView.setFitHeight(Screen.getPrimary().getBounds().getHeight());
-		
-	}
-	
-	public void nextImage(){
-		if(indice==photographe.getPhotoList().size()-1){
-			indice = 0;
-		} else {
-			indice++;
-		}
-		try {
-			imageToDisplay = new MyImage("file:\\"+photographe.getPhotoList().get(indice).getPath().getValue());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-	
-	public void previousImage(){
-		if(indice == 0){
-			indice = photographe.getPhotoList().size()-1;
-		} else {
-			indice--;
-		}
-		try {
-			imageToDisplay = new MyImage("file:\\"+photographe.getPhotoList().get(indice).getPath().getValue());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		update();
-	}
-	
-	public void printAction(){
-		main.getPrintRequest().add(new PrintRequest(main.getPrintRequest().size(), photographe.getPhotoList().get(indice).getPath().getValue()));
-	}
-	
+	}	
 }

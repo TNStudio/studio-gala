@@ -58,7 +58,7 @@ public class SettingsInterfaceController implements MyObserver{
 						System.err.println("Dossier non trouvé !\n" + main.getFolder());
 						e.printStackTrace();
 					}
-					main.loadInterface(main.getLoaderMain(), main.getMainInterfaceController(), main.getSceneMain());
+					main.loadInterface(main.getMainInterfaceController(), main.getSceneMain());
 				}
 			}
 			
@@ -78,7 +78,7 @@ public class SettingsInterfaceController implements MyObserver{
 					System.err.println("Dossier non trouvé !\n" + main.getFolder());
 					e.printStackTrace();
 				}
-				main.loadInterface(main.getLoaderMain(), main.getMainInterfaceController(), main.getSceneMain());
+				main.loadInterface(main.getMainInterfaceController(), main.getSceneMain());
 			}
 		});
 	}
