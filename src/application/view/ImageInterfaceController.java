@@ -50,7 +50,6 @@ public class ImageInterfaceController implements MyObserver{
 		try {
 			imageView.setImage(imageToDisplay); //diplay the new image
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		imageView.setFitHeight(Screen.getPrimary().getBounds().getHeight());//set its size
@@ -61,7 +60,7 @@ public class ImageInterfaceController implements MyObserver{
 	 * Diplay the next image in the list
 	 */
 	public void nextImage(){
-		if(indice==photographe.getPhotoList().size()-1){
+		if(indice==photographe.getPhotoList().size()-1){ //control limits
 			indice = 0;
 		} else {
 			indice++;
@@ -69,7 +68,6 @@ public class ImageInterfaceController implements MyObserver{
 		try {
 			imageToDisplay = new MyImage("file:\\"+photographe.getPhotoList().get(indice).getPath().getValue());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		update();
@@ -78,7 +76,7 @@ public class ImageInterfaceController implements MyObserver{
 	 * Display the previous image in the list
 	 */
 	public void previousImage(){
-		if(indice == 0){
+		if(indice == 0){ //control limits
 			indice = photographe.getPhotoList().size()-1;
 		} else {
 			indice--;
@@ -86,7 +84,6 @@ public class ImageInterfaceController implements MyObserver{
 		try {
 			imageToDisplay = new MyImage("file:\\"+photographe.getPhotoList().get(indice).getPath().getValue());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		update();
@@ -96,7 +93,7 @@ public class ImageInterfaceController implements MyObserver{
 	 */
 	public void printAction(){
 		main.getPrintRequest().add(new PrintRequest(main.getPrintRequest().size(), photographe.getPhotoList().get(indice).getPath().getValue()));
-		main.getPrintInterfaceController().getPrintQueueTable().scrollTo(main.getPrintInterfaceController().getList().size()-1);
+		main.getPrintInterfaceController().getPrintQueueTable().scrollTo(main.getPrintInterfaceController().getList().size()-1); //autoscroll
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
 	
