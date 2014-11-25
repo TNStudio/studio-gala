@@ -57,7 +57,7 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 			@Override
 			public void handle(MouseEvent event) {
 
-				main.loadInterface(main.getLoaderSettings(), main.getSettingsInterfaceController(), main.getSceneSettings());
+				main.loadInterface(main.getSettingsInterfaceController(), main.getSceneSettings());
 			}
 		});
 
@@ -171,7 +171,7 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 		}
 		main.getImageInterfaceController().setImageToDisplay(selectedPhotograph, indice);
 		main.getImageInterfaceController().update();
-		main.loadInterface(main.getLoaderImage(), main.getImageInterfaceController(), main.getSceneImage());
+		main.loadInterface(main.getImageInterfaceController(), main.getSceneImage());
 	}
 	
 	

@@ -28,106 +28,182 @@ import javafx.scene.layout.AnchorPane;
  */
 public class Main extends Application {
 
-	private int nb_photographe = 3;
-	private int largeur_photo = 350;
-	private int nb_photo = 5;
-	private ObservableList<Photographe> photographeList;
-	private ObservableList<PrintRequest> printRequest;
-	private String folder ="D:\\Utilisateur\\Dropbox\\Gala2014";
-	private Stage primaryStage;
-	private Stage secondaryStage;
-	private LoadingRoutines routine;
+	private int largeur_photo = 350; //default value
+	private int nb_photo = 5; //default value
+	private ObservableList<Photographe> photographeList; //list of photographer
+	private ObservableList<PrintRequest> printRequest; //list of print request
+	private String folder ="D:\\Utilisateur\\Dropbox\\Gala2014"; //default value
+	private Stage primaryStage;  //the stage containing the user interface
+	private Stage secondaryStage; //the stage containing the admin interface
+	private LoadingRoutines routine; //the routine scaning the files
 
-	private FXMLLoader loaderMain;
-	private FXMLLoader loaderSettings;
-	private FXMLLoader loaderImage;
-	private FXMLLoader loaderPrinter;
+	/**
+	 * FXML loader for the scenes
+	 */
+	private FXMLLoader loaderMain; //the explorer
+	private FXMLLoader loaderSettings; //the settings
+	private FXMLLoader loaderImage; //the full screen image
+	private FXMLLoader loaderPrinter; //the printer table
+	
+	/**
+	 * The controller of the views
+	 */
 	private SettingsInterfaceController settingsInterfaceController;
 	private MainInterfaceController mainInterfaceController;
 	private ImageInterfaceController imageInterfaceController;
 	private PrintQueueInterfaceController printInterfaceController;
+	
+	/**
+	 * The root panes of the views
+	 */
 	private AnchorPane rootMain;
 	private AnchorPane rootSettings;
 	private AnchorPane rootImage;
 	private AnchorPane rootPrint;
+	
+	/**
+	 * the scenes
+	 */
 	private Scene sceneMain;
 	private Scene sceneSettings;
 	private Scene sceneImage;
 	private Scene scenePrint;
+	
+/**
+ * Start methods
+ */
+	/**
+	 * Start method
+	 * @param args
+	 */
+	public static void main(String[] args) {
 
-	public Main(){
-		setRoutine(new LoadingRoutines(largeur_photo));
-		printRequest = FXCollections.observableArrayList();
-		printRequest.add(new PrintRequest(0, "test"));
+		launch(args); //invoke start method
+	}
+	/**
+	 * Constructor
+	 */
+	public Main(){ //called at start up
+		setRoutine(new LoadingRoutines(largeur_photo)); //start the routine to scan files with the desired width
+		printRequest = FXCollections.observableArrayList(); //create the list to store print requests
+		//printRequest.add(new PrintRequest(0, "test")); //for testing
 	}
 
+	/**
+	 * Create the GUI
+	 */
 	@Override
-	public void start(Stage primaryStage) {
-		this.primaryStage=primaryStage;
-		this.primaryStage.initStyle(StageStyle.UNDECORATED);
-		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-		primaryStage.setX(primaryScreenBounds.getMinX());
-		primaryStage.setY(primaryScreenBounds.getMinY());
-		primaryStage.setWidth(primaryScreenBounds.getWidth());
-		primaryStage.setHeight(primaryScreenBounds.getHeight());
-		primaryStage.setOnHiding(new EventHandler<WindowEvent>() {
+	public void start(Stage primaryStage) { //called at start up
+		this.primaryStage=primaryStage; //instanciate the first window
+		this.primaryStage.initStyle(StageStyle.UNDECORATED); //set it undecorated
+		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds(); //create a rectangle that fit the main screen
+		primaryStage.setX(primaryScreenBounds.getMinX());//put the fisrt window at the origin of the screen
+		primaryStage.setY(primaryScreenBounds.getMinY());//see above
+		primaryStage.setWidth(primaryScreenBounds.getWidth()); //fit the window to the size of the screen
+		primaryStage.setHeight(primaryScreenBounds.getHeight());//see above
+		primaryStage.setOnHiding(new EventHandler<WindowEvent>() { //set a always on top
 
 			@Override
 			public void handle(WindowEvent arg0) {
-				primaryStage.show();
+				primaryStage.show(); //show the window when is asked to hide
 
 			}
 		});
-		secondaryStage = new Stage();
-		try {
+		secondaryStage = new Stage(); //instanciate the second window
+		try { //try to load the GUIs
+			/**
+			 * Instantiate the loaders
+			 */
 			loaderMain = new FXMLLoader();
 			loaderSettings = new FXMLLoader();
 			loaderImage = new FXMLLoader();
 			loaderPrinter = new FXMLLoader();
+			
+			/**
+			 * Pick up the GUI's XML files
+			 */
 			loaderSettings.setLocation(Main.class.getResource("view/SettingsInterface.fxml")); //find the GUI file
 			loaderMain.setLocation(Main.class.getResource("view/MainInterface.fxml")); //find the GUI file
 			loaderImage.setLocation(Main.class.getResource("view/ImageInterface.fxml")); //find the GUI file
 			loaderPrinter.setLocation(Main.class.getResource("view/PrintQueueInterface.fxml"));
+			
+			/**
+			 * get the root pane of the GUIs
+			 */
 			rootSettings = loaderSettings.load();
 			rootMain = loaderMain.load(); //load the GUI in a AnchorPane
 			rootImage = loaderImage.load();
 			rootPrint = loaderPrinter.load();
+			
+			/**
+			 * Set the controllers of the GUIs
+			 */
 			settingsInterfaceController = loaderSettings.getController();
 			mainInterfaceController = loaderMain.getController();
 			imageInterfaceController = loaderImage.getController();
 			printInterfaceController = loaderPrinter.getController();
 
+			/**
+			 * Link the print request table view to the model
+			 */
 			printInterfaceController.setList(printRequest);
 
+			/**
+			 * Link the controllers to the model
+			 */
 			settingsInterfaceController.setMain(this);
 			mainInterfaceController.setMain(this);
 			imageInterfaceController.setMain(this);
 			printInterfaceController.setMain(this);
+			
+			/**
+			 * Create the scenes
+			 */
 			sceneMain = new Scene(rootMain); //create a scene with the GUI
 			sceneSettings = new Scene(rootSettings); //create a scene with the GUI
 			sceneImage = new Scene(rootImage);
 			scenePrint = new Scene(rootPrint);
-			this.loadInterface(loaderSettings, settingsInterfaceController, sceneSettings);
+			
+			/**
+			 * Load the start up GUI
+			 */
+			this.loadInterface(settingsInterfaceController, sceneSettings);
 			primaryStage.show(); //display the window
-			launchPrinterStage();
+			launchPrinterStage(); //diaplay the admin window
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
+/*
+ * --------------------------------------------------------------------------------------------------------------------------
+ */
 
-	public static void main(String[] args) {
+	/**
+	 * Load a new interface in argument
+	 * @param loader the loader of the XML interface
+	 * @param obs the observer of the loaded interface
+	 * @param scene the scene to display in the window
+	 */
+	public void loadInterface(MyObserver obs, Scene scene){
 
-		launch(args); //invoke start method
+		primaryStage.setScene(scene); //put the scene in a stage (window)
+		primaryStage.setTitle("GALA printer Service by TN Studio"); //give a name to the window
+		primaryStage.toFront();
+		obs.update();
 	}
 
-	public int getNb_photographe() {
-		return nb_photographe;
+	/**
+	 * Load the admin window
+	 */
+	public void launchPrinterStage(){
+		secondaryStage.setScene(scenePrint);
+		secondaryStage.setTitle("GALA printer Service by TN Studio"); //give a name to the window
+		secondaryStage.show();
 	}
-
-	public void setNb_photographe(int nb_photographe) {
-		this.nb_photographe = nb_photographe;
-	}
-
+	
+//------------------------------------------------------------------------------------------------------------------------------
+//Getters and Setters	
+	
 	public int getLargeur_photo() {
 		return largeur_photo;
 	}
@@ -160,8 +236,6 @@ public class Main extends Application {
 		this.primaryStage = primaryStage;
 	}
 
-
-
 	public String getFolder() {
 		return folder;
 	}
@@ -169,10 +243,6 @@ public class Main extends Application {
 	public void setFolder(String folder) {
 		this.folder = folder;
 	}
-
-
-
-
 
 	public AnchorPane getRootMain() {
 		return rootMain;
@@ -224,8 +294,6 @@ public class Main extends Application {
 		this.mainInterfaceController = mainInterfaceController;
 	}
 
-
-
 	public Scene getSceneMain() {
 		return sceneMain;
 	}
@@ -241,8 +309,6 @@ public class Main extends Application {
 	public void setSceneSettings(Scene sceneSettings) {
 		this.sceneSettings = sceneSettings;
 	}
-
-
 
 	public FXMLLoader getLoaderImage() {
 		return loaderImage;
@@ -277,32 +343,10 @@ public class Main extends Application {
 		this.sceneImage = sceneImage;
 	}
 
-	public void loadInterface(FXMLLoader loader, MyObserver obs, Scene scene){
-
-		primaryStage.setScene(scene); //put the scene in a stage (window)
-		primaryStage.setTitle("GALA printer Service by TN Studio"); //give a name to the window
-		//		primaryStage.setFullScreen(true); //set the window in fullscreen mode
-		//		primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-		primaryStage.toFront();
-		obs.update();
-	}
-
-	public void launchPrinterStage(){
-		secondaryStage.setScene(scenePrint);
-		secondaryStage.setTitle("GALA printer Service by TN Studio"); //give a name to the window
-		secondaryStage.show();
-	}
-
-	/**
-	 * @return the routine
-	 */
 	public LoadingRoutines getRoutine() {
 		return routine;
 	}
 
-	/**
-	 * @param routine the routine to set
-	 */
 	public void setRoutine(LoadingRoutines routine) {
 		this.routine = routine;
 	}
@@ -323,8 +367,4 @@ public class Main extends Application {
 			PrintQueueInterfaceController printInterfaceController) {
 		this.printInterfaceController = printInterfaceController;
 	}
-	
-	
-
-
 }

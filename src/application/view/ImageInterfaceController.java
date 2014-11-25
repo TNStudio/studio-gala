@@ -41,7 +41,7 @@ public class ImageInterfaceController implements MyObserver{
 
 			@Override
 			public void handle(MouseEvent arg0) {
-				main.loadInterface(main.getLoaderMain(), main.getMainInterfaceController(), main.getSceneMain());
+				main.loadInterface(main.getMainInterfaceController(), main.getSceneMain());
 				
 			}
 		});
