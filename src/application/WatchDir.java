@@ -32,6 +32,7 @@ package application;
  */
 
 import java.nio.file.*;
+import java.nio.file.WatchEvent.Kind;
 
 import static java.nio.file.StandardWatchEventKinds.*;
 import static java.nio.file.LinkOption.*;
@@ -108,8 +109,7 @@ public class WatchDir {
         this.watcher = FileSystems.getDefault().newWatchService();
         this.keys = new HashMap<WatchKey,Path>();
         this.recursive = recursive;
-        this.thumbGen = new ThumbnailGenerator(350);
-//      this.thumbGen = (ThumbnailGenerator) action;
+        this.thumbGen = (ThumbnailGenerator) action;
 
         if (recursive) {
             System.out.format("Scanning %s ...\n", dir);
@@ -145,7 +145,7 @@ public class WatchDir {
             }
 
             for (WatchEvent<?> event: key.pollEvents()) {
-                WatchEvent.Kind kind = event.kind();
+                Kind<?> kind = event.kind();
                 thumb = new SimpleStringProperty();
 
                 // TBD - provide example of how OVERFLOW event is handled
@@ -164,7 +164,7 @@ public class WatchDir {
                 //Action on event
                 if(!child.toString().contains("thumb") && child.toFile().isFile() && kind == ENTRY_CREATE){
                     try {
-                    	System.out.println(child.toString());
+                    	Thread.sleep(100); //If the loop is too fast it can catch an empty preallocated file when one is copy-pasted
 						thumb = thumbGen.transform(child.toString(), child.getParent().toString()+"\\thumbs\\"+child.getFileName().toString()+".thumb");
 					} catch (Exception e) {
 						System.out.println("Unable to generate thumbnail during dynaic scan for "+child.toString());
