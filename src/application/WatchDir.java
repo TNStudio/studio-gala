@@ -42,6 +42,11 @@ import java.util.*;
  * Example to watch a directory (or tree) for changes to files.
  */
 
+/**
+ * Adaptation of a class that look into each directory for filesystem events like file creation or file deletion.
+ * @author Axel
+ *
+ */
 public class WatchDir {
 
     private final WatchService watcher;

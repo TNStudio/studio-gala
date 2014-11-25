@@ -19,7 +19,7 @@ import application.model.Photographe;
 
 /**
  * A class that give the ids of the GUI components and implements their behaviors
- * @author Martin
+ * @author Martin, Axel
  *
  */
 public class MainInterfaceController implements MyObserver, EventHandler<MouseEvent>{
@@ -96,6 +96,8 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 	@Override
 	public void update() { //re-build the view
 		System.out.println("in update");
+		
+		//Update Photograph list
 		selectedPhotograph = listPhotographe.getSelectionModel().getSelectedItem();
 		try {
 			System.out.println( listPhotographe.getSelectionModel().getSelectedItem().getName().getValue());
@@ -103,21 +105,21 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 			listPhotographe.getSelectionModel().select(0);
 			selectedPhotograph = listPhotographe.getSelectionModel().getSelectedItem();
 		}
-		//Photographe selectedPhotograph = main.getPhotographeList().get(0);
 		
 		for(int i = 0; i<main.getPhotographeList().size(); i++){
 			System.out.println("Photographe "+main.getPhotographeList().get(i).getNumero().getValue());
 			for(int j=0; j<main.getPhotographeList().get(i).getPhotoList().size();j++){
-				System.out.println("photo "+main.getPhotographeList().get(i).getPhotoList().get(j).getPath().getValue());
+				System.out.println("photo "+main.getPhotographeList().get(i).getPhotoList().get(j).getThumbPath().getValue());
 			}
 		}
 
 		photoGridPane.getChildren().clear();
 		
+		//Update photo grid
 		int nb_ligne = selectedPhotograph.getPhotoList().size()/main.getNb_photo();
 		for(int i = 0; i<nb_ligne; i++){ //create all the imageviews with the picture inside
 			for(int j = 0; j<main.getNb_photo(); j++){
-				MyImage image = new MyImage("file:\\"+selectedPhotograph.getPhotoList().get(i*main.getNb_photo()+j).getPath().getValue());
+				MyImage image = new MyImage("file:\\"+selectedPhotograph.getPhotoList().get(i*main.getNb_photo()+j).getThumbPath().getValue());
 				//System.out.println(selectedPhotograph.getPhotoList().get(i+j).getPath().getValue());
 				ImageView imageView = new ImageView(image);
 				imageView.setFitWidth(main.getLargeur_photo()); //set the width of the pictures
@@ -131,7 +133,7 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 		int last_ligne = selectedPhotograph.getPhotoList().size()%main.getNb_photo();
 		if(nb_ligne ==0){
 			for(int i=0;i<selectedPhotograph.getPhotoList().size();i++){
-				MyImage image = new MyImage("file:\\"+selectedPhotograph.getPhotoList().get(i).getPath().getValue());
+				MyImage image = new MyImage("file:\\"+selectedPhotograph.getPhotoList().get(i).getThumbPath().getValue());
 				ImageView imageView = new ImageView(image);
 				imageView.setFitWidth(main.getLargeur_photo()); //set the width of the pictures
 				imageView.setFitHeight(main.getLargeur_photo()); //set the height of the pictures
@@ -142,7 +144,7 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 			}
 		} else {
 			for(int i=0;i<last_ligne;i++){
-				MyImage image = new MyImage("file:\\"+selectedPhotograph.getPhotoList().get(i+nb_ligne*main.getNb_photo()).getPath().getValue());
+				MyImage image = new MyImage("file:\\"+selectedPhotograph.getPhotoList().get(i+nb_ligne*main.getNb_photo()).getThumbPath().getValue());
 				ImageView imageView = new ImageView(image);
 				imageView.setFitWidth(main.getLargeur_photo()); //set the width of the pictures
 				imageView.setFitHeight(main.getLargeur_photo()); //set the height of the pictures
