@@ -164,7 +164,7 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 		System.out.println(imgToDiplay.getURL());
 		for(int i=0;i<selectedPhotograph.getPhotoList().size();i++){
 			System.out.println("file:\\"+selectedPhotograph.getPhotoList().get(i).getPath().getValue());
-			if(imgToDiplay.getURL().equals("file:\\"+selectedPhotograph.getPhotoList().get(i).getPath().getValue())){
+			if(imgToDiplay.getURL().contains(selectedPhotograph.getPhotoList().get(i).getPath().getValue())){
 				indice = i;
 				break;
 			}
