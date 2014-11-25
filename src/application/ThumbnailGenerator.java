@@ -17,26 +17,19 @@ import javafx.scene.image.Image;
 
 public class ThumbnailGenerator {
 	private int thumbWidth;
-
-	public ThumbnailGenerator() {
-	}
+	private Image image;
 	
 	public ThumbnailGenerator(int thumbWidth) {
 		this.thumbWidth = thumbWidth;
 	}
 	
 	public StringProperty transform(String originalFile, String thumbnailFile) throws Exception {
-		return this.transform(originalFile, thumbnailFile, thumbWidth);
-	}
-
-	public StringProperty transform(String originalFile, String thumbnailFile, int thumbWidth) throws Exception {
 		//Path of the thumb
 		StringProperty path = new SimpleStringProperty(thumbnailFile+".png");
 
 		//Create the output file
 		File outFileImage = new File(path.getValue());
 		outFileImage.getParentFile().mkdirs();
-		System.out.println(outFileImage.toString());
 		
 		//If thumb exist return path
 		if(outFileImage.exists()) {
@@ -44,9 +37,7 @@ public class ThumbnailGenerator {
 		}
 
 		//Load the image in required dimensions
-		String temp = "file:\\"+originalFile;
-		Image image = new Image(temp, thumbWidth, thumbWidth, true, true, false);
-		System.out.println(image.getHeight());
+		image = new Image("file:\\"+originalFile, thumbWidth, thumbWidth, true, true, false);
 
 		//Write the thumb down
 		try {
