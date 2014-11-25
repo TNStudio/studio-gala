@@ -73,7 +73,6 @@ public class LoadingRoutines {
 							//Add photo in list of photo
 							photoList.add(new Photo(photo, thumb));
 						}
-						System.out.println(photoList.get(photoList.size()-1));
 					}
 				}
 				
