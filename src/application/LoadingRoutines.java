@@ -68,12 +68,11 @@ public class LoadingRoutines {
 							photo.setValue(f.getAbsolutePath());
 							
 							//Generate thumb
-							thumb = thumbGen.transform(f.getAbsolutePath(), f.getAbsolutePath()+".thumb", thumbWidth);
+							thumb = thumbGen.transform(f.getAbsolutePath(), subdir+"\\thumbs\\"+f.getName()+".thumb", thumbWidth);
 							
 							//Add photo in list of photo
 							photoList.add(new Photo(photo, thumb));
 						}
-						System.out.println(photoList.get(photoList.size()-1));
 					}
 				}
 				
