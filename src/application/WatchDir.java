@@ -32,6 +32,7 @@ package application;
  */
 
 import java.nio.file.*;
+import java.nio.file.WatchEvent.Kind;
 
 import static java.nio.file.StandardWatchEventKinds.*;
 import static java.nio.file.LinkOption.*;
@@ -144,7 +145,7 @@ public class WatchDir {
             }
 
             for (WatchEvent<?> event: key.pollEvents()) {
-                WatchEvent.Kind kind = event.kind();
+                Kind<?> kind = event.kind();
                 thumb = new SimpleStringProperty();
 
                 // TBD - provide example of how OVERFLOW event is handled
