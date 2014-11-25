@@ -110,6 +110,7 @@ public class ImageInterfaceController implements MyObserver{
 	
 	public void printAction(){
 		main.getPrintRequest().add(new PrintRequest(main.getPrintRequest().size(), photographe.getPhotoList().get(indice).getPath().getValue()));
+		main.getPrintInterfaceController().getPrintQueueTable().scrollTo(main.getPrintInterfaceController().getList().size()-1);
 	}
 	
 }

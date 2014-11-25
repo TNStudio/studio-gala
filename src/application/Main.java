@@ -315,5 +315,16 @@ public class Main extends Application {
 		this.printRequest = printRequest;
 	}
 
+	public PrintQueueInterfaceController getPrintInterfaceController() {
+		return printInterfaceController;
+	}
+
+	public void setPrintInterfaceController(
+			PrintQueueInterfaceController printInterfaceController) {
+		this.printInterfaceController = printInterfaceController;
+	}
+	
+	
+
 
 }
