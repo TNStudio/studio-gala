@@ -4,7 +4,6 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.embed.swing.SwingFXUtils;
@@ -31,7 +30,6 @@ public class ThumbnailGenerator {
 		//Create the output file
 		File outFileImage = new File(path.getValue());
 		outFileImage.getParentFile().mkdirs();
-		System.out.println(outFileImage.toString());
 		
 		//If thumb exist return path
 		if(outFileImage.exists()) {
@@ -39,10 +37,7 @@ public class ThumbnailGenerator {
 		}
 
 		//Load the image in required dimensions
-		String temp = "file:\\"+originalFile;
-		image = new Image(temp, thumbWidth, thumbWidth, true, true, false);
-		System.out.println(image.widthProperty().toString());
-		System.out.println(image.getHeight());
+		image = new Image("file:\\"+originalFile, thumbWidth, thumbWidth, true, true, false);
 
 		//Write the thumb down
 		try {

@@ -97,6 +97,6 @@ public class LoadingRoutines {
 			}
 		};
 		bgThread = new BackgroundThread(backgroundFolderScan);
-		bgThread.start();		
+		bgThread.start();
 	}
 }
