@@ -169,7 +169,47 @@ public class Main extends Application {
 			sceneImage = new Scene(rootImage);
 			scenePrint = new Scene(rootPrint);
 			
+			rootSettings.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+				@Override
+				public void handle(KeyEvent event) {
+					if(event.getCode().equals(KeyCode.F1)){
+						getActionCenter().doIt(Actionner.SETTINGS);
+					} else if(event.getCode().equals(KeyCode.F5)) {
+						getActionCenter().doIt(Actionner.REFRESH);
+					} else if(event.getCode().equals(KeyCode.ENTER)) {
+						getActionCenter().doIt(Actionner.VALIDATE_PRINT);
+					} 
+				}
+			});
 			
+			rootMain.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+				@Override
+				public void handle(KeyEvent event) {
+					if(event.getCode().equals(KeyCode.F1)){
+						getActionCenter().doIt(Actionner.SETTINGS);
+					} else if(event.getCode().equals(KeyCode.F5)) {
+						getActionCenter().doIt(Actionner.REFRESH);
+					} else if(event.getCode().equals(KeyCode.ENTER)) {
+						getActionCenter().doIt(Actionner.VALIDATE_PRINT);
+					} 
+				}
+			});
+			
+			rootImage.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+				@Override
+				public void handle(KeyEvent event) {
+					if(event.getCode().equals(KeyCode.F1)){
+						getActionCenter().doIt(Actionner.SETTINGS);
+					} else if(event.getCode().equals(KeyCode.F5)) {
+						getActionCenter().doIt(Actionner.REFRESH);
+					} else if(event.getCode().equals(KeyCode.ENTER)) {
+						getActionCenter().doIt(Actionner.VALIDATE_PRINT);
+					} 
+				}
+			});
 			/**
 			 * Load the start up GUI
 			 */
