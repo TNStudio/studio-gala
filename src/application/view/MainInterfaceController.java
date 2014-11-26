@@ -83,6 +83,12 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 
 	@Override
 	public void update() { //re-build the view
+		try {
+			main.setPhotographeList(main.getRoutine().loadImagesRoutine(main.getFolder(), false));
+		} catch (Exception e1) {
+			System.out.println("Unable to update photolist");
+			e1.printStackTrace();
+		}
 		selectedPhotograph = listPhotographe.getSelectionModel().getSelectedItem();
 		try {
 			System.out.println( listPhotographe.getSelectionModel().getSelectedItem().getName().getValue());//try to read the selected photographer

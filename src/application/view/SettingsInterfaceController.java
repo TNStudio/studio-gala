@@ -52,7 +52,7 @@ public class SettingsInterfaceController implements MyObserver{
 						main.setNb_photo(Integer.valueOf(nb_photoField.getText()));
 						main.setFolder(folderField.getText());
 						main.setLargeur_photo(Integer.valueOf(width_photoField.getText()));
-						main.setPhotographeList(main.getRoutine().loadImagesRoutine(main.getFolder()));
+						main.setPhotographeList(main.getRoutine().loadImagesRoutine(main.getFolder(), true));
 						main.getMainInterfaceController().updatePhotographerList();
 					} catch (Exception e) {
 						System.err.println("Dossier non trouvé !\n" + main.getFolder());
@@ -72,7 +72,7 @@ public class SettingsInterfaceController implements MyObserver{
 					main.setNb_photo(Integer.valueOf(nb_photoField.getText()));
 					main.setFolder(folderField.getText());
 					main.setLargeur_photo(Integer.valueOf(width_photoField.getText()));
-					main.setPhotographeList(main.getRoutine().loadImagesRoutine(main.getFolder()));
+					main.setPhotographeList(main.getRoutine().loadImagesRoutine(main.getFolder(), true));
 					main.getMainInterfaceController().updatePhotographerList();
 				} catch (Exception e) {
 					System.err.println("Dossier non trouvé !\n" + main.getFolder());
