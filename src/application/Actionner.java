@@ -9,6 +9,8 @@ public class Actionner {
 	public static final int REFRESH = 0;
 	public static final int SETTINGS = 1;
 	public static final int VALIDATE_PRINT = 2;
+	public static final int REOPEN_PRINT = 3;
+	public static final int MAIN_MENU = 4;
 
 
 	public Actionner(Main main){
@@ -38,6 +40,14 @@ public class Actionner {
 			} catch (Exception e) {
 				//do nothing
 			}
+			break;
+			
+		case REOPEN_PRINT:
+			main.getSecondaryStage().show();
+			break;
+			
+		case MAIN_MENU:
+			main.loadInterface(main.getMainInterfaceController(), main.getSceneMain());
 			break;
 		}
 	}

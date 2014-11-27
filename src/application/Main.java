@@ -1,6 +1,9 @@
 package application;
 
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import observerPattern.MyObserver;
 import application.model.Photographe;
 import application.model.PrintRequest;
@@ -9,6 +12,7 @@ import application.view.MainInterfaceController;
 import application.view.PrintQueueInterfaceController;
 import application.view.SettingsInterfaceController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -90,6 +94,7 @@ public class Main extends Application {
 	public Main(){ //called at start up
 		setRoutine(new LoadingRoutines(largeur_photo)); //start the routine to scan files with the desired width
 		printRequest = FXCollections.observableArrayList(); //create the list to store print requests
+		
 		//printRequest.add(new PrintRequest(0, "test")); //for testing
 	}
 
@@ -169,7 +174,53 @@ public class Main extends Application {
 			sceneImage = new Scene(rootImage);
 			scenePrint = new Scene(rootPrint);
 			
+			rootSettings.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+				@Override
+				public void handle(KeyEvent event) {
+					if(event.getCode().equals(KeyCode.F1)){
+						getActionCenter().doIt(Actionner.SETTINGS);
+					} else if(event.getCode().equals(KeyCode.F5)) {
+						getActionCenter().doIt(Actionner.REFRESH);
+					} else if(event.getCode().equals(KeyCode.ENTER)) {
+						getActionCenter().doIt(Actionner.VALIDATE_PRINT);
+					} else if(event.getCode().equals(KeyCode.F6)) {
+						getActionCenter().doIt(Actionner.REOPEN_PRINT);
+					} 
+				}
+			});
 			
+			rootMain.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+				@Override
+				public void handle(KeyEvent event) {
+					if(event.getCode().equals(KeyCode.F1)){
+						getActionCenter().doIt(Actionner.SETTINGS);
+					} else if(event.getCode().equals(KeyCode.F5)) {
+						getActionCenter().doIt(Actionner.REFRESH);
+					} else if(event.getCode().equals(KeyCode.ENTER)) {
+						getActionCenter().doIt(Actionner.VALIDATE_PRINT);
+					}  else if(event.getCode().equals(KeyCode.F6)) {
+						getActionCenter().doIt(Actionner.REOPEN_PRINT);
+					}
+				}
+			});
+			
+			rootImage.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+				@Override
+				public void handle(KeyEvent event) {
+					if(event.getCode().equals(KeyCode.F1)){
+						getActionCenter().doIt(Actionner.SETTINGS);
+					} else if(event.getCode().equals(KeyCode.F5)) {
+						getActionCenter().doIt(Actionner.REFRESH);
+					} else if(event.getCode().equals(KeyCode.ENTER)) {
+						getActionCenter().doIt(Actionner.VALIDATE_PRINT);
+					}  else if(event.getCode().equals(KeyCode.F6)) {
+						getActionCenter().doIt(Actionner.REOPEN_PRINT);
+					}
+				}
+			});
 			/**
 			 * Load the start up GUI
 			 */
@@ -179,6 +230,28 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		Timer timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask() {
+			
+			@Override
+			public void run() {
+				Platform.runLater(new Runnable() {
+					
+					@Override
+					public void run() {
+					try {
+						System.out.println("refresh");
+						actionCenter.doIt(Actionner.REFRESH);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					}
+				});
+				
+			}
+		},0,5000);
 	}
 /*
  * --------------------------------------------------------------------------------------------------------------------------
@@ -381,5 +454,22 @@ public class Main extends Application {
 	public void setActionCenter(Actionner actionCenter) {
 		this.actionCenter = actionCenter;
 	}
+	public Scene getScenePrint() {
+		return scenePrint;
+	}
+	
+	public void setScenePrint(Scene scenePrint) {
+		this.scenePrint = scenePrint;
+	}
+	
+	public Stage getSecondaryStage() {
+		return secondaryStage;
+	}
+	
+	public void setSecondaryStage(Stage secondaryStage) {
+		this.secondaryStage = secondaryStage;
+	}
+	
+	
 	
 }
