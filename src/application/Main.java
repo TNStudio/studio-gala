@@ -179,6 +179,8 @@ public class Main extends Application {
 						getActionCenter().doIt(Actionner.REFRESH);
 					} else if(event.getCode().equals(KeyCode.ENTER)) {
 						getActionCenter().doIt(Actionner.VALIDATE_PRINT);
+					} else if(event.getCode().equals(KeyCode.F6)) {
+						getActionCenter().doIt(Actionner.REOPEN_PRINT);
 					} 
 				}
 			});
@@ -193,7 +195,9 @@ public class Main extends Application {
 						getActionCenter().doIt(Actionner.REFRESH);
 					} else if(event.getCode().equals(KeyCode.ENTER)) {
 						getActionCenter().doIt(Actionner.VALIDATE_PRINT);
-					} 
+					}  else if(event.getCode().equals(KeyCode.F6)) {
+						getActionCenter().doIt(Actionner.REOPEN_PRINT);
+					}
 				}
 			});
 			
@@ -207,7 +211,9 @@ public class Main extends Application {
 						getActionCenter().doIt(Actionner.REFRESH);
 					} else if(event.getCode().equals(KeyCode.ENTER)) {
 						getActionCenter().doIt(Actionner.VALIDATE_PRINT);
-					} 
+					}  else if(event.getCode().equals(KeyCode.F6)) {
+						getActionCenter().doIt(Actionner.REOPEN_PRINT);
+					}
 				}
 			});
 			/**
@@ -421,5 +427,22 @@ public class Main extends Application {
 	public void setActionCenter(Actionner actionCenter) {
 		this.actionCenter = actionCenter;
 	}
+	public Scene getScenePrint() {
+		return scenePrint;
+	}
+	
+	public void setScenePrint(Scene scenePrint) {
+		this.scenePrint = scenePrint;
+	}
+	
+	public Stage getSecondaryStage() {
+		return secondaryStage;
+	}
+	
+	public void setSecondaryStage(Stage secondaryStage) {
+		this.secondaryStage = secondaryStage;
+	}
+	
+	
 	
 }
