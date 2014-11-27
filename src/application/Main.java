@@ -169,7 +169,53 @@ public class Main extends Application {
 			sceneImage = new Scene(rootImage);
 			scenePrint = new Scene(rootPrint);
 			
+			rootSettings.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+				@Override
+				public void handle(KeyEvent event) {
+					if(event.getCode().equals(KeyCode.F1)){
+						getActionCenter().doIt(Actionner.SETTINGS);
+					} else if(event.getCode().equals(KeyCode.F5)) {
+						getActionCenter().doIt(Actionner.REFRESH);
+					} else if(event.getCode().equals(KeyCode.ENTER)) {
+						getActionCenter().doIt(Actionner.VALIDATE_PRINT);
+					} else if(event.getCode().equals(KeyCode.F6)) {
+						getActionCenter().doIt(Actionner.REOPEN_PRINT);
+					} 
+				}
+			});
 			
+			rootMain.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+				@Override
+				public void handle(KeyEvent event) {
+					if(event.getCode().equals(KeyCode.F1)){
+						getActionCenter().doIt(Actionner.SETTINGS);
+					} else if(event.getCode().equals(KeyCode.F5)) {
+						getActionCenter().doIt(Actionner.REFRESH);
+					} else if(event.getCode().equals(KeyCode.ENTER)) {
+						getActionCenter().doIt(Actionner.VALIDATE_PRINT);
+					}  else if(event.getCode().equals(KeyCode.F6)) {
+						getActionCenter().doIt(Actionner.REOPEN_PRINT);
+					}
+				}
+			});
+			
+			rootImage.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+				@Override
+				public void handle(KeyEvent event) {
+					if(event.getCode().equals(KeyCode.F1)){
+						getActionCenter().doIt(Actionner.SETTINGS);
+					} else if(event.getCode().equals(KeyCode.F5)) {
+						getActionCenter().doIt(Actionner.REFRESH);
+					} else if(event.getCode().equals(KeyCode.ENTER)) {
+						getActionCenter().doIt(Actionner.VALIDATE_PRINT);
+					}  else if(event.getCode().equals(KeyCode.F6)) {
+						getActionCenter().doIt(Actionner.REOPEN_PRINT);
+					}
+				}
+			});
 			/**
 			 * Load the start up GUI
 			 */
@@ -381,5 +427,22 @@ public class Main extends Application {
 	public void setActionCenter(Actionner actionCenter) {
 		this.actionCenter = actionCenter;
 	}
+	public Scene getScenePrint() {
+		return scenePrint;
+	}
+	
+	public void setScenePrint(Scene scenePrint) {
+		this.scenePrint = scenePrint;
+	}
+	
+	public Stage getSecondaryStage() {
+		return secondaryStage;
+	}
+	
+	public void setSecondaryStage(Stage secondaryStage) {
+		this.secondaryStage = secondaryStage;
+	}
+	
+	
 	
 }
