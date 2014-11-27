@@ -32,7 +32,7 @@ public class LoadingRoutines {
 		thumbGen = new ThumbnailGenerator(thumbWeight);
 	}
 
-	public ObservableList<Photographe> loadImagesRoutine(String directory) throws Exception {		
+	public ObservableList<Photographe> loadImagesRoutine(String directory, boolean background) throws Exception {		
 		File[] files;
 		File dir = new File(directory);
 		File subdir;
@@ -77,7 +77,11 @@ public class LoadingRoutines {
 				photographeList.get(photographeList.size()-1).setPhotoList(photoList);
 			}
 		}
-		startWatchDir(directory);
+		
+		//Launch on demand
+		if (background) {
+			startWatchDir(directory);
+		}
 		return photographeList;   
 	}
 	

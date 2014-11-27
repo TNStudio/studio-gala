@@ -3,7 +3,11 @@
  */
 package application.view;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import observerPattern.MyObserver;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -37,6 +41,8 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 	private Main main; //the model
 	private GridPane photoGridPane; //the layout
 	Photographe selectedPhotograph; //the selected photographer in the list
+	
+
 	
 	@FXML
 	private void initialize(){
@@ -83,16 +89,23 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 
 	@Override
 	public void update() { //re-build the view
-		selectedPhotograph = listPhotographe.getSelectionModel().getSelectedItem();
+		System.out.println("in update");
 		try {
-			System.out.println( listPhotographe.getSelectionModel().getSelectedItem().getName().getValue());//try to read the selected photographer
-		} catch (NullPointerException e) {
+			main.setPhotographeList(main.getRoutine().loadImagesRoutine(main.getFolder(), false));
+		} catch (Exception e1) {
+			System.out.println("Unable to update photolist");
+			e1.printStackTrace();
+		}
+		
+		try {
+			selectedPhotograph = main.getPhotographeList().get(listPhotographe.getSelectionModel().getSelectedIndex());//try to read the selected photographer
+		} catch (Exception e) {
 			listPhotographe.getSelectionModel().select(0); //choose default if not
 			selectedPhotograph = listPhotographe.getSelectionModel().getSelectedItem();
 		}
 		//clean the layout
 		photoGridPane.getChildren().clear();
-		
+		System.out.println(selectedPhotograph.getPhotoList().size());
 		//Update photo grid
 		int nb_ligne = selectedPhotograph.getPhotoList().size()/main.getNb_photo();
 		for(int i = 0; i<nb_ligne; i++){ //create all the imageviews with the picture inside
@@ -150,6 +163,8 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 		main.getImageInterfaceController().setImageToDisplay(selectedPhotograph, indice);
 		main.getImageInterfaceController().update();
 		main.loadInterface(main.getImageInterfaceController(), main.getSceneImage());
+		
+		
 	}
 
 }

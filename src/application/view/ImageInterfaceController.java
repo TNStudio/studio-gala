@@ -1,10 +1,15 @@
 package application.view;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import observerPattern.MyObserver;
+import application.Actionner;
 import application.Main;
 import application.model.MyImage;
 import application.model.Photographe;
 import application.model.PrintRequest;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -30,6 +35,7 @@ public class ImageInterfaceController implements MyObserver{
 	private Image imageToDisplay; //the image to diplay in full screen
 	private Photographe photographe; //the photographer of the image
 	private int indice = 0; //the number of the image in the photographer's list
+	private Timer timer;
 	
 	@FXML
 	private void initialize(){
@@ -49,6 +55,31 @@ public class ImageInterfaceController implements MyObserver{
 	public void update() { //what to do when update
 		try {
 			imageView.setImage(imageToDisplay); //diplay the new image
+			try {
+				timer.cancel();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			timer = new Timer();
+			timer.schedule(new TimerTask() {
+				
+				@Override
+				public void run() {
+					Platform.runLater(new Runnable() {
+						
+						@Override
+						public void run() {
+						try {
+							System.out.println("refresh");
+							main.getActionCenter().doIt(Actionner.MAIN_MENU);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						}
+					});
+					
+				}
+			}, 60000);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

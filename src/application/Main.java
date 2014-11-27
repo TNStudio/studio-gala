@@ -1,6 +1,9 @@
 package application;
 
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import observerPattern.MyObserver;
 import application.model.Photographe;
 import application.model.PrintRequest;
@@ -9,6 +12,7 @@ import application.view.MainInterfaceController;
 import application.view.PrintQueueInterfaceController;
 import application.view.SettingsInterfaceController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -90,6 +94,7 @@ public class Main extends Application {
 	public Main(){ //called at start up
 		setRoutine(new LoadingRoutines(largeur_photo)); //start the routine to scan files with the desired width
 		printRequest = FXCollections.observableArrayList(); //create the list to store print requests
+		
 		//printRequest.add(new PrintRequest(0, "test")); //for testing
 	}
 
@@ -225,6 +230,28 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		Timer timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask() {
+			
+			@Override
+			public void run() {
+				Platform.runLater(new Runnable() {
+					
+					@Override
+					public void run() {
+					try {
+						System.out.println("refresh");
+						actionCenter.doIt(Actionner.REFRESH);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					}
+				});
+				
+			}
+		},0,5000);
 	}
 /*
  * --------------------------------------------------------------------------------------------------------------------------
