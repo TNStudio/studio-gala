@@ -58,7 +58,7 @@ public class ImageInterfaceController implements MyObserver{
 			try {
 				timer.cancel();
 			} catch (Exception e1) {
-				e1.printStackTrace();
+				//e1.printStackTrace();
 			}
 			timer = new Timer();
 			timer.schedule(new TimerTask() {

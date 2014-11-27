@@ -244,8 +244,7 @@ public class Main extends Application {
 						System.out.println("refresh");
 						actionCenter.doIt(Actionner.REFRESH);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						//e.printStackTrace();
 					}
 					}
 				});

@@ -94,7 +94,7 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 			main.setPhotographeList(main.getRoutine().loadImagesRoutine(main.getFolder(), false));
 		} catch (Exception e1) {
 			System.out.println("Unable to update photolist");
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}
 		
 		try {
