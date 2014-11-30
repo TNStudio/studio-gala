@@ -21,16 +21,6 @@
                      <children>
                         <ListView fx:id="listPhotographe" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" />
                      </children></HBox>
-                  <Button fx:id="settings" alignment="TOP_LEFT" contentDisplay="TOP" mnemonicParsing="false" text="Settings" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="refresh" mnemonicParsing="false" text="Refresh">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </Button>
                </children>
             </VBox>
          </children>

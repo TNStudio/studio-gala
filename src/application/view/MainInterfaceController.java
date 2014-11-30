@@ -33,10 +33,10 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 	private ScrollPane photoScroll;
 	@FXML
 	private ListView<Photographe> listPhotographe;
-	@FXML
-	private Button settings;
-	@FXML
-	private Button refresh;
+//	@FXML
+//	private Button settings;
+//	@FXML
+//	private Button refresh;
 
 	private Main main; //the model
 	private GridPane photoGridPane; //the layout
@@ -52,23 +52,23 @@ public class MainInterfaceController implements MyObserver, EventHandler<MouseEv
 		photoScroll.setContent(photoGridPane); //put the grid pane into the scrollpane (xml generated)
 
 		//Listeners
-		settings.setOnMouseClicked(new EventHandler<MouseEvent>() { //load another scene
-
-			@Override
-			public void handle(MouseEvent event) {
-
-				main.getActionCenter().doIt(Actionner.SETTINGS);
-			}
-		});
-
-
-		refresh.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				main.getActionCenter().doIt(Actionner.REFRESH);
-			}
-		});
+//		settings.setOnMouseClicked(new EventHandler<MouseEvent>() { //load another scene
+//
+//			@Override
+//			public void handle(MouseEvent event) {
+//
+//				main.getActionCenter().doIt(Actionner.SETTINGS);
+//			}
+//		});
+//
+//
+//		refresh.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//
+//			@Override
+//			public void handle(MouseEvent event) {
+//				main.getActionCenter().doIt(Actionner.REFRESH);
+//			}
+//		});
 		
 		listPhotographe.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
